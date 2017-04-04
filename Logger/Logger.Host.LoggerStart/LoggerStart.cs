@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Logger.Core.Hosting;
+
 
 
 
@@ -12,7 +14,8 @@ namespace Logger.Host.LoggerStart
         [STAThread]
         public static int Main ()
         {
-            return 1;
+            Bootstrapper bootstrapper = new Bootstrapper();
+            return bootstrapper.Run();
         }
 
         #endregion
