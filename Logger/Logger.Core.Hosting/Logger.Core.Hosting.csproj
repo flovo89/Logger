@@ -86,10 +86,31 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logger.Common.Base\Logger.Common.Base.csproj">
+      <Project>{5dad762c-af1a-43d5-bed1-7dbfaf0f0db1}</Project>
+      <Name>Logger.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logger.Core.Interfaces\Logger.Core.Interfaces.csproj">
+      <Project>{ecd71f25-6972-491e-99a8-cf2587317501}</Project>
+      <Name>Logger.Core.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
