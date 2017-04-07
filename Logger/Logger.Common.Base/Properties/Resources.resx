@@ -117,22 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bootstrapper_AnotherInstanceIsAlreadyRunning" xml:space="preserve">
-    <value>Another Instance is already running...</value>
+  <data name="ConversionNotPossibleException" xml:space="preserve">
+    <value>Conversion is not possible exception</value>
   </data>
-  <data name="Bootstrapper_ApplicationAssemblyIsRequired" xml:space="preserve">
-    <value>The application assembly is required and cannot be null.</value>
+  <data name="EmptyStringArgumentException" xml:space="preserve">
+    <value>Empty string argument exception</value>
   </data>
-  <data name="Bootstrapper_ApplicationCompanyIsRequired" xml:space="preserve">
-    <value>The application company is required and cannot be null or empty.</value>
+  <data name="ExceptionExtensions_DetailedException_HelpLink" xml:space="preserve">
+    <value>Help link:</value>
   </data>
-  <data name="Bootstrapper_ApplicationCopyrightIsRequired" xml:space="preserve">
-    <value>The application copyright is required and cannot be null or empty.</value>
+  <data name="ExceptionExtensions_DetailedException_InnerException" xml:space="preserve">
+    <value>--- INNER EXCEPTION ---</value>
   </data>
-  <data name="Bootstrapper_ApplicationIconIsRequired" xml:space="preserve">
-    <value>The application icon is required and cannot be null.</value>
+  <data name="ExceptionExtensions_DetailedException_Message" xml:space="preserve">
+    <value>Message:</value>
   </data>
-  <data name="Bootstrapper_ApplicationNameIsRequired" xml:space="preserve">
-    <value>The application name is required and cannot be null or empty.</value>
+  <data name="ExceptionExtensions_DetailedException_Source" xml:space="preserve">
+    <value>Source:</value>
+  </data>
+  <data name="ExceptionExtensions_DetailedException_StackTrace" xml:space="preserve">
+    <value>Stack trace:</value>
+  </data>
+  <data name="ExceptionExtensions_DetailedException_TargetSite" xml:space="preserve">
+    <value>Target site:</value>
+  </data>
+  <data name="ExceptionExtensions_DetailedException_Type" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="InvalidStreamArgumentException" xml:space="preserve">
+    <value>Invalid stream argument</value>
+  </data>
+  <data name="ObjectExtensions_DeepCloning_ObjectNotCloneable" xml:space="preserve">
+    <value>Object is not cloneable</value>
+  </data>
+  <data name="PathNotAbsoluteArgumentException" xml:space="preserve">
+    <value>Path is not absolute argument exception</value>
+  </data>
+  <data name="PathNotDirectoryArgumentException" xml:space="preserve">
+    <value>Path not directory argument exception</value>
+  </data>
+  <data name="PathNotFileArgumentException" xml:space="preserve">
+    <value>Path argument is not a file</value>
+  </data>
+  <data name="PathNotRelativeArgumentException" xml:space="preserve">
+    <value>Path not relative argument exception</value>
+  </data>
+  <data name="StreamNotReadableArgumentException" xml:space="preserve">
+    <value>Stream not readable argument exception</value>
+  </data>
+  <data name="StreamNotReadableException" xml:space="preserve">
+    <value>Stream not readable</value>
+  </data>
+  <data name="StreamNotSeekableArgumentException" xml:space="preserve">
+    <value>Stream not seekable argument exception</value>
+  </data>
+  <data name="StreamNotWriteableArgumentException" xml:space="preserve">
+    <value>Stream not writeable argument exception</value>
+  </data>
+  <data name="StreamNotWriteableException" xml:space="preserve">
+    <value>Stream not writeable</value>
+  </data>
+  <data name="TypeExtensions_NoMatchingMembers" xml:space="preserve">
+    <value>No matching members found</value>
+  </data>
+  <data name="TypeExtensions_ParameterTypeCountMismatchParameterValueCount" xml:space="preserve">
+    <value>Parameter type count mismatches parameter value count</value>
+  </data>
+  <data name="TypeExtensions_TooManyMatchingMembers" xml:space="preserve">
+    <value>Too many matching members found</value>
   </data>
 </root>

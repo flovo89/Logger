@@ -1,8 +1,10 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Globalization;
 using System.IO;
 using System.Text;
+
+using Logger.Common.Base.IO.Text;
+using Logger.Common.Base.Properties;
 
 
 
@@ -57,16 +59,16 @@ namespace Logger.Common.Base.DataTypes
                     writer.IndentLevel = 0;
                     writer.IndentString = indentString;
 
-                    writer.Write(Properties.Resources.ExceptionExtensions_DetailedException_Message);
+                    writer.Write(Resources.ExceptionExtensions_DetailedException_Message);
                     writer.WriteLine(exception.Message.Trim());
 
-                    writer.Write(Properties.Resources.ExceptionExtensions_DetailedException_Type);
+                    writer.Write(Resources.ExceptionExtensions_DetailedException_Type);
                     writer.WriteLine(exception.GetType().AssemblyQualifiedName);
 
-                    writer.Write(Properties.Resources.ExceptionExtensions_DetailedException_Source);
+                    writer.Write(Resources.ExceptionExtensions_DetailedException_Source);
                     writer.WriteLine(exception.Source == null ? ExceptionExtensions.NullString : exception.Source.Trim());
 
-                    writer.Write(Properties.Resources.ExceptionExtensions_DetailedException_TargetSite);
+                    writer.Write(Resources.ExceptionExtensions_DetailedException_TargetSite);
                     if (exception.TargetSite == null)
                     {
                         writer.WriteLine(ExceptionExtensions.NullString);
@@ -78,10 +80,10 @@ namespace Logger.Common.Base.DataTypes
                         writer.WriteLine(exception.TargetSite.Name.Trim());
                     }
 
-                    writer.Write(Properties.Resources.ExceptionExtensions_DetailedException_HelpLink);
+                    writer.Write(Resources.ExceptionExtensions_DetailedException_HelpLink);
                     writer.WriteLine(exception.HelpLink == null ? ExceptionExtensions.NullString : exception.HelpLink.Trim());
 
-                    writer.Write(Properties.Resources.ExceptionExtensions_DetailedException_StackTrace);
+                    writer.Write(Resources.ExceptionExtensions_DetailedException_StackTrace);
                     if (exception.StackTrace == null)
                     {
                         writer.WriteLine(ExceptionExtensions.NullString);
@@ -107,7 +109,7 @@ namespace Logger.Common.Base.DataTypes
 
                     if (exception.InnerException != null)
                     {
-                        writer.WriteLine(Properties.Resources.ExceptionExtensions_DetailedException_InnerException);
+                        writer.WriteLine(Resources.ExceptionExtensions_DetailedException_InnerException);
                         writer.IndentLevel++;
                         writer.WriteLine(exception.InnerException.ToDetailedString(indentString));
                         writer.IndentLevel--;

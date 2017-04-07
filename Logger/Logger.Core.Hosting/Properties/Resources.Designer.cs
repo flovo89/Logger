@@ -68,5 +68,50 @@ namespace Logger.Core.Hosting.Properties {
                 return ResourceManager.GetString("Bootstrapper_AnotherInstanceIsAlreadyRunning", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application assembly is required and cannot be null..
+        /// </summary>
+        internal static string Bootstrapper_ApplicationAssemblyIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_ApplicationAssemblyIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application company is required and cannot be null or empty..
+        /// </summary>
+        internal static string Bootstrapper_ApplicationCompanyIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_ApplicationCompanyIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application copyright is required and cannot be null or empty..
+        /// </summary>
+        internal static string Bootstrapper_ApplicationCopyrightIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_ApplicationCopyrightIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application icon is required and cannot be null..
+        /// </summary>
+        internal static string Bootstrapper_ApplicationIconIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_ApplicationIconIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application name is required and cannot be null or empty..
+        /// </summary>
+        internal static string Bootstrapper_ApplicationNameIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_ApplicationNameIsRequired", resourceCulture);
+            }
+        }
     }
 }
