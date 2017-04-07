@@ -25,6 +25,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{496052
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger.Common.Base", "Logger.Common.Base\Logger.Common.Base.csproj", "{5DAD762C-AF1A-43D5-BED1-7DBFAF0F0DB1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{4DB06D39-5399-4D88-BB72-8988FA4A4E1C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resharper", "Resharper", "{C8D65F37-D4CB-483C-9558-7D5C277C942E}"
+	ProjectSection(SolutionItems) = preProject
+		Logger.sln.DotSettings.user = Logger.sln.DotSettings.user
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,5 +73,6 @@ Global
 		{F908FA56-E3FC-44DB-A712-0DAC6F381F86} = {DA4A2E41-88E8-4DCF-A8FC-FFDB75F003D3}
 		{ECD71F25-6972-491E-99A8-CF2587317501} = {DA4A2E41-88E8-4DCF-A8FC-FFDB75F003D3}
 		{5DAD762C-AF1A-43D5-BED1-7DBFAF0F0DB1} = {496052DA-F957-4162-AC19-778D65799044}
+		{C8D65F37-D4CB-483C-9558-7D5C277C942E} = {4DB06D39-5399-4D88-BB72-8988FA4A4E1C}
 	EndGlobalSection
 EndGlobal
