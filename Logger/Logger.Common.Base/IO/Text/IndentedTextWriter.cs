@@ -4,8 +4,6 @@ using System.IO;
 using System.Runtime.Remoting;
 using System.Text;
 
-using Logger.Common.Base.DataTypes;
-
 
 
 
@@ -394,7 +392,6 @@ namespace Logger.Common.Base.IO.Text
             }
         }
 
-        [CLSCompliant (false)]
         public override void Write (uint value)
         {
             this.VerifyNotClosed();
@@ -402,7 +399,6 @@ namespace Logger.Common.Base.IO.Text
             this.BaseWriter.Write(value);
         }
 
-        [CLSCompliant (false)]
         public override void Write (ulong value)
         {
             this.VerifyNotClosed();
@@ -610,7 +606,6 @@ namespace Logger.Common.Base.IO.Text
             }
         }
 
-        [CLSCompliant (false)]
         public override void WriteLine (uint value)
         {
             this.VerifyNotClosed();
@@ -619,7 +614,6 @@ namespace Logger.Common.Base.IO.Text
             this.IndentPending = true;
         }
 
-        [CLSCompliant (false)]
         public override void WriteLine (ulong value)
         {
             this.VerifyNotClosed();

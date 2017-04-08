@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -14,6 +15,23 @@ using Logger.Common.Base.ObjectModel.Exceptions;
 
 public static class StringExtensions
 {
+    #region Constants
+
+    private static readonly string[] BooleanFalseValues =
+    {
+        "false", "no", "0", "off", "none", "nothing", "null", "[null]", "nein", "non", "f", "n"
+    };
+
+    private static readonly string[] BooleanTrueValues =
+    {
+        "true", "yes", "1", "on", "ja", "oui", "si", "t", "y", "j"
+    };
+
+    #endregion
+
+
+
+
     #region Static Properties/Indexer
 
     private static Dictionary<string, Encoding> BodyNameEncodings { get; set; }
@@ -53,6 +71,18 @@ public static class StringExtensions
 
     #region Static Methods
 
+    public static bool IsBoolean (this string str)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        bool? value = StringExtensions.GetBoolean(str);
+
+        return value != null;
+    }
+
     public static bool IsCultureInfo (this string str)
     {
         if (str == null)
@@ -63,6 +93,30 @@ public static class StringExtensions
         CultureInfo cultureInfo = StringExtensions.GetCultureInfo(str);
 
         return cultureInfo != null;
+    }
+
+    public static bool IsDirectoryPath (this string str, bool allowWildcards)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        DirectoryPath path = StringExtensions.GetDirectoryPath(str, allowWildcards);
+
+        return path != null;
+    }
+
+    public static bool IsDirectoryPath (this string str)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        DirectoryPath path = StringExtensions.GetDirectoryPath(str, true);
+
+        return path != null;
     }
 
     public static bool IsEmpty (this string str)
@@ -92,6 +146,23 @@ public static class StringExtensions
         Encoding encoding = StringExtensions.GetEncoding(str);
 
         return encoding != null;
+    }
+
+    public static bool IsEnumeration (this string str, Type enumType)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        if (enumType == null)
+        {
+            throw new ArgumentNullException(nameof(enumType));
+        }
+
+        object value = StringExtensions.GetEnumeration(str, enumType);
+
+        return value != null;
     }
 
     public static string Join (this IEnumerable<string> str)
@@ -135,6 +206,41 @@ public static class StringExtensions
     public static string Join (this IEnumerable<string> str, char separator, int startIndex, int count)
     {
         return str.Join(new string(separator, 1), startIndex, count);
+    }
+
+    public static string Keep (this string str, Predicate<char> predicate)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        if (predicate == null)
+        {
+            throw new ArgumentNullException(nameof(predicate));
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        foreach (char c in str)
+        {
+            if (predicate(c))
+            {
+                sb.Append(c);
+            }
+        }
+
+        return sb.ToString();
+    }
+
+    public static string RemoveLineBreaks (this string str)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        return str.Replace("\r", string.Empty).Replace("\n", string.Empty);
     }
 
     public static string[] Split (this string str, char separator)
@@ -217,6 +323,23 @@ public static class StringExtensions
         return count;
     }
 
+    public static bool ToBoolean (this string str)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        bool? value = StringExtensions.GetBoolean(str);
+
+        if (value == null)
+        {
+            throw new ConversionNotPossibleException(typeof(string), typeof(bool));
+        }
+
+        return value.Value;
+    }
+
     public static CultureInfo ToCultureInfo (this string str)
     {
         if (str == null)
@@ -268,6 +391,120 @@ public static class StringExtensions
         }
 
         return encoding;
+    }
+
+    public static object ToEnumeration (this string str, Type enumType)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        if (enumType == null)
+        {
+            throw new ArgumentNullException(nameof(enumType));
+        }
+
+        object value = StringExtensions.GetEnumeration(str, enumType);
+
+        if (value == null)
+        {
+            throw new ConversionNotPossibleException(typeof(string), enumType);
+        }
+
+        return value;
+    }
+
+    public static Guid ToGuid (this string str)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        Guid? value = StringExtensions.GetGuid(str);
+
+        if (value == null)
+        {
+            throw new ConversionNotPossibleException(typeof(string), typeof(Guid));
+        }
+
+        return value.Value;
+    }
+
+    public static string ToPathCompatible (this string str)
+    {
+        return str.ToPathCompatible(false, null);
+    }
+
+    public static string ToPathCompatible (this string str, bool allowWhitespaces)
+    {
+        return str.ToPathCompatible(allowWhitespaces, null);
+    }
+
+    public static string ToPathCompatible (this string str, bool allowWhitespaces, char? whitespaceReplacement)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        HashSet<char> invalidCharacters = new HashSet<char>();
+        invalidCharacters.AddRange(Path.GetInvalidFileNameChars());
+        invalidCharacters.AddRange(Path.GetInvalidPathChars());
+        invalidCharacters.Add(Path.DirectorySeparatorChar);
+        invalidCharacters.Add(Path.AltDirectorySeparatorChar);
+        invalidCharacters.Add(Path.PathSeparator);
+        invalidCharacters.Add(Path.VolumeSeparatorChar);
+
+        StringBuilder strBuilder = new StringBuilder();
+
+        for (int i1 = 0; i1 < str.Length; i1++)
+        {
+            if (!allowWhitespaces && char.IsWhiteSpace(str[i1]))
+            {
+                continue;
+            }
+
+            if (invalidCharacters.Contains(str[i1]))
+            {
+                continue;
+            }
+
+            strBuilder.Append(str[i1]);
+        }
+
+        return strBuilder.ToString();
+    }
+
+    private static bool? GetBoolean (string str)
+    {
+        str = str.ToLowerInvariant().Trim();
+
+        bool value = false;
+
+        if (bool.TryParse(str, out value))
+        {
+            return value;
+        }
+
+        foreach (string booleanFalseValue in StringExtensions.BooleanFalseValues)
+        {
+            if (string.Equals(booleanFalseValue, str, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+        }
+
+        foreach (string booleanTrueValue in StringExtensions.BooleanTrueValues)
+        {
+            if (string.Equals(booleanTrueValue, str, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return null;
     }
 
     private static CultureInfo GetCultureInfo (string str)
@@ -369,6 +606,38 @@ public static class StringExtensions
         }*/
 
         return result;
+    }
+
+    private static object GetEnumeration (string str, Type enumType)
+    {
+        str = str.Trim();
+
+        if (str.IsEmpty())
+        {
+            return null;
+        }
+
+        try
+        {
+            return Enum.Parse(enumType, str, true);
+        }
+        catch (ArgumentException)
+        {
+            return null;
+        }
+    }
+
+    private static Guid? GetGuid (string str)
+    {
+        str = str.ToUpperInvariant().Trim();
+
+        Guid value;
+        if (Guid.TryParse(str, out value))
+        {
+            return value;
+        }
+
+        return null;
     }
 
     #endregion

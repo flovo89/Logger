@@ -33,12 +33,14 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Generic\ICollectionExtensions.cs" />
@@ -58,6 +60,8 @@
     <Compile Include="IO\Files\DirectoryPath.cs" />
     <Compile Include="IO\Files\FilePath.cs" />
     <Compile Include="IO\Files\PathString.cs" />
+    <Compile Include="IO\Keyboard\SystemKeyboard.cs" />
+    <Compile Include="IO\Keyboard\SystemKeyboardKey.cs" />
     <Compile Include="IO\Streams\ReadOnlyStream.cs" />
     <Compile Include="IO\Streams\StreamExtensions.cs" />
     <Compile Include="IO\Streams\StreamNotReadableException.cs" />
@@ -83,6 +87,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reflection\AssemblyExtension.cs" />
+    <Compile Include="Reflection\AssemblyGuidFlags.cs" />
+    <Compile Include="Runtime\CommandLine.cs" />
+    <Compile Include="Runtime\OperatingSystemExtensions.cs" />
+    <Compile Include="Runtime\WindowsVersion.cs" />
+    <Compile Include="Threading\DispatcherExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

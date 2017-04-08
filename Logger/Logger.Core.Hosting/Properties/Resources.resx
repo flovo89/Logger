@@ -129,10 +129,28 @@
   <data name="Bootstrapper_ApplicationCopyrightIsRequired" xml:space="preserve">
     <value>The application copyright is required and cannot be null or empty.</value>
   </data>
+  <data name="Bootstrapper_ApplicationDirectoryIsRequired" xml:space="preserve">
+    <value>An application directory is required and cannot be null or empty.</value>
+  </data>
   <data name="Bootstrapper_ApplicationIconIsRequired" xml:space="preserve">
     <value>The application icon is required and cannot be null.</value>
   </data>
+  <data name="Bootstrapper_ApplicationInstanceIsRequired" xml:space="preserve">
+    <value>Application instance is required and cannot be null or empty.</value>
+  </data>
   <data name="Bootstrapper_ApplicationNameIsRequired" xml:space="preserve">
     <value>The application name is required and cannot be null or empty.</value>
+  </data>
+  <data name="Bootstrapper_ApplicationVersionIsRequired" xml:space="preserve">
+    <value>The application version is required and cannot be null or empty.</value>
+  </data>
+  <data name="Bootstrapper_DataDirectoryIsRequired" xml:space="preserve">
+    <value>Data directory is required and cannot be null or empty.</value>
+  </data>
+  <data name="Bootstrapper_InvalidOSVersion" xml:space="preserve">
+    <value>The OS Version ist not supported.</value>
+  </data>
+  <data name="Bootstrapper_TemporaryDirectoryIsRequired" xml:space="preserve">
+    <value>Temporary directory is required and cannot be null or empty.</value>
   </data>
 </root>

@@ -97,6 +97,15 @@ namespace Logger.Core.Hosting.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An application directory is required and cannot be null or empty..
+        /// </summary>
+        internal static string Bootstrapper_ApplicationDirectoryIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_ApplicationDirectoryIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The application icon is required and cannot be null..
         /// </summary>
         internal static string Bootstrapper_ApplicationIconIsRequired {
@@ -106,11 +115,56 @@ namespace Logger.Core.Hosting.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application instance is required and cannot be null or empty..
+        /// </summary>
+        internal static string Bootstrapper_ApplicationInstanceIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_ApplicationInstanceIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The application name is required and cannot be null or empty..
         /// </summary>
         internal static string Bootstrapper_ApplicationNameIsRequired {
             get {
                 return ResourceManager.GetString("Bootstrapper_ApplicationNameIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application version is required and cannot be null or empty..
+        /// </summary>
+        internal static string Bootstrapper_ApplicationVersionIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_ApplicationVersionIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data directory is required and cannot be null or empty..
+        /// </summary>
+        internal static string Bootstrapper_DataDirectoryIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_DataDirectoryIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The OS Version ist not supported..
+        /// </summary>
+        internal static string Bootstrapper_InvalidOSVersion {
+            get {
+                return ResourceManager.GetString("Bootstrapper_InvalidOSVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Temporary directory is required and cannot be null or empty..
+        /// </summary>
+        internal static string Bootstrapper_TemporaryDirectoryIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_TemporaryDirectoryIsRequired", resourceCulture);
             }
         }
     }
