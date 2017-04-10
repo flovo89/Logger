@@ -13,12 +13,12 @@ namespace Logger.Common.Base.IO.Streams
         #region Instance Constructor/Destructor
 
         public StreamNotWriteableException ()
-                : base(Resources.StreamNotWriteableException)
+                : base(Properties.Resources.StreamNotWriteableException)
         {
         }
 
         public StreamNotWriteableException (Exception innerException)
-                : base(Resources.StreamNotWriteableException, innerException)
+                : base(Properties.Resources.StreamNotWriteableException, innerException)
         {
         }
 

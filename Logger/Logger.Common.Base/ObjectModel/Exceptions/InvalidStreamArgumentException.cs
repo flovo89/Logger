@@ -14,7 +14,7 @@ namespace Logger.Common.Base.ObjectModel.Exceptions
         #region Instance Constructor/Destructor
 
         public InvalidStreamArgumentException (string paramName)
-                : base(Resources.InvalidStreamArgumentException, paramName)
+                : base(Properties.Resources.InvalidStreamArgumentException, paramName)
         {
         }
 

@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Logger.Core.Hosting")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Logger.Core.Hosting")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Flos Fabric")]
 [assembly: AssemblyProduct("Logger.Core.Hosting")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]

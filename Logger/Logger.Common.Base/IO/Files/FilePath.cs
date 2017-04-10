@@ -127,7 +127,7 @@ namespace Logger.Common.Base.IO.Files
 
             if (!FilePath.IsFilePath(path, true))
             {
-                throw new InvalidPathArgumentException(Resources.PathNotFileArgumentException, nameof(path));
+                throw new InvalidPathArgumentException(Properties.Resources.PathNotFileArgumentException, nameof(path));
             }
         }
 

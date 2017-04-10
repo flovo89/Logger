@@ -196,6 +196,15 @@ namespace Logger.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resource not found.
+        /// </summary>
+        internal static string ResourceNotFoundException {
+            get {
+                return ResourceManager.GetString("ResourceNotFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stream not readable argument exception.
         /// </summary>
         internal static string StreamNotReadableArgumentException {

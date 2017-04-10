@@ -12,7 +12,7 @@ namespace Logger.Common.Base.ObjectModel.Exceptions
         #region Instance Constructor/Destructor
 
         public PathNotDirectoryArgumentException (string paramName)
-                : base(Resources.PathNotDirectoryArgumentException, paramName)
+                : base(Properties.Resources.PathNotDirectoryArgumentException, paramName)
         {
         }
 

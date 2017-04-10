@@ -162,6 +162,9 @@
   <data name="PathNotRelativeArgumentException" xml:space="preserve">
     <value>Path not relative argument exception</value>
   </data>
+  <data name="ResourceNotFoundException" xml:space="preserve">
+    <value>Resource not found</value>
+  </data>
   <data name="StreamNotReadableArgumentException" xml:space="preserve">
     <value>Stream not readable argument exception</value>
   </data>

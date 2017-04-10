@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Primitives;
 using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
@@ -13,10 +14,17 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
+using Fluent;
+
+using Logger.Common.Base.AvalonDock;
 using Logger.Common.Base.Collections.Generic;
+using Logger.Common.Base.Comparison;
+using Logger.Common.Base.Composition;
 using Logger.Common.Base.DataTypes;
+using Logger.Common.Base.FluentRibbon;
 using Logger.Common.Base.IO.Files;
 using Logger.Common.Base.IO.Keyboard;
+using Logger.Common.Base.Prism;
 using Logger.Common.Base.Reflection;
 using Logger.Common.Base.Runtime;
 using Logger.Common.Base.Threading;
@@ -25,22 +33,36 @@ using Logger.Core.Hosting.Properties;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
 using Logger.Core.Interfaces.Resources;
+using Logger.Core.Interfaces.Session;
 using Logger.Core.Interfaces.Settings;
 
-using Prism.Mef;
+using Microsoft.Practices.Prism.Logging;
+using Microsoft.Practices.Prism.MefExtensions;
+using Microsoft.Practices.Prism.Modularity;
+using Microsoft.Practices.Prism.Regions;
+
+using Xceed.Wpf.AvalonDock;
+
+using FilteredCatalog = Logger.Common.Base.Composition.FilteredCatalog;
 
 
 
 
 namespace Logger.Core.Hosting
 {
-    public class Bootstrapper : MefBootstrapper
+    public class Bootstrapper : MefBootstrapper,
+            ISessionCultureAware,
+            ISessionShutdownAware
     {
         #region Constants
+
+        private const string DataFolderEnvironmentVariableName = "DataFolder";
 
         private const bool DefaultAllowMultipleInstances = false;
 
         private const Environment.SpecialFolder DefaultDataDirectoryFolder = Environment.SpecialFolder.LocalApplicationData;
+
+        private const string DefaultModuleFileSearchPattern = "*.Modules.*.dll";
 
         private const string DefaultPrimaryThreadName = "PrimaryThread";
 
@@ -49,6 +71,8 @@ namespace Logger.Core.Hosting
         private const string DefaultSplashScreenThreadName = "SplashScreenThread ({0})";
 
         private const ThreadPriority DefaultSplashScreenThreadPriority = ThreadPriority.Highest;
+
+        private const string ExecutableFolderEnvironmentVariableName = "ExecutableFolder";
 
         #endregion
 
@@ -130,7 +154,7 @@ namespace Logger.Core.Hosting
 
         private bool IsRunning { get; set; }
 
-        private bool IsShuttingDown { get; }
+        private bool IsShuttingDown { get; set; }
 
         private Mutex SessionMutex { get; set; }
 
@@ -147,6 +171,12 @@ namespace Logger.Core.Hosting
 
         [Import (typeof(ISettingManager), AllowDefault = true, AllowRecomposition = true, RequiredCreationPolicy = CreationPolicy.Shared)]
         protected internal Lazy<ISettingManager> SettingManager { get; private set; }
+
+        [Import (typeof(IShellManager), AllowDefault = true, AllowRecomposition = true, RequiredCreationPolicy = CreationPolicy.Shared)]
+        protected internal Lazy<IShellManager> ShellManager { get; private set; }
+
+        [Import (typeof(ISplashScreenManager), AllowDefault = true, AllowRecomposition = true, RequiredCreationPolicy = CreationPolicy.Shared)]
+        protected internal Lazy<ISplashScreenManager> SplashScreenManager { get; private set; }
 
         #endregion
 
@@ -450,6 +480,34 @@ namespace Logger.Core.Hosting
             return this.Run(true);
         }
 
+        private LogLevel ConvertCategoryToLogLevel (Category category)
+        {
+            switch (category)
+            {
+                case Category.Debug:
+                {
+                    return LogLevel.Debug;
+                }
+
+                case Category.Info:
+                {
+                    return LogLevel.Information;
+                }
+
+                case Category.Warn:
+                {
+                    return LogLevel.Warning;
+                }
+
+                case Category.Exception:
+                {
+                    return LogLevel.Error;
+                }
+            }
+
+            return LogLevel.Debug;
+        }
+
         #endregion
 
 
@@ -493,6 +551,92 @@ namespace Logger.Core.Hosting
         protected virtual Application CreateApplication ()
         {
             return Application.Current ?? new Application();
+        }
+
+        protected virtual void CreateEnvironmentVariables ()
+        {
+            Environment.SetEnvironmentVariable(Bootstrapper.ExecutableFolderEnvironmentVariableName, this.SessionManager.Value.ExecutableFolder.Path, EnvironmentVariableTarget.Process);
+            Environment.SetEnvironmentVariable(Bootstrapper.DataFolderEnvironmentVariableName, this.SessionManager.Value.DataFolder.Path, EnvironmentVariableTarget.Process);
+        }
+
+        protected virtual ComposablePartCatalog CreatingHostingProvidedCatalog ()
+        {
+            IEnumerable<ComposablePartDefinition> hostingPartsToRegister = this.GetHostingProvidedPartsToRegister();
+            PartCatalog hostingProvidedCatalog = new PartCatalog(hostingPartsToRegister);
+            return hostingProvidedCatalog;
+        }
+
+        protected virtual bool DetermineUseExport (ComposablePartDefinition composablePartDefinition, ExportDefinition exportDefinition)
+        {
+            List<string> declaredModes = new List<string>();
+            bool? useExportDeterminationMethodResult = null;
+
+            IDictionary<string, object> metadata = composablePartDefinition.Metadata;
+
+            if (metadata.ContainsKey(PartMetadataNames.SessionMode))
+            {
+                object value = metadata[PartMetadataNames.SessionMode];
+                if (value is string)
+                {
+                    declaredModes.Add((string)value);
+                }
+                if (value is IEnumerable<string>)
+                {
+                    declaredModes.AddRange((IEnumerable<string>)value);
+                }
+            }
+
+            if (metadata.ContainsKey(PartMetadataNames.UseExportDeterminationType) && metadata.ContainsKey(PartMetadataNames.UseExportDeterminationMethod))
+            {
+                Type typeCandidate = metadata[PartMetadataNames.UseExportDeterminationType] as Type;
+                string methodNameCandidate = metadata[PartMetadataNames.UseExportDeterminationMethod] as string;
+
+                if (( typeCandidate != null ) && ( methodNameCandidate != null ))
+                {
+                    if (!methodNameCandidate.IsEmpty())
+                    {
+                        useExportDeterminationMethodResult = (bool?)typeCandidate.CallMethod(methodNameCandidate, BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static, typeof(bool?), new[]
+                        {
+                            typeof(ComposablePartDefinition), typeof(ExportDefinition)
+                        }, new object[]
+                        {
+                            composablePartDefinition, exportDefinition
+                        });
+                    }
+                }
+            }
+
+            string[] sessionMode = this.SessionMode.ToArray();
+
+            bool allow = true;
+
+            if (declaredModes.Count > 0)
+            {
+                allow = false;
+
+                foreach (string declaredMode in declaredModes)
+                {
+                    string cleanedMode = declaredMode.Trim();
+
+                    if (cleanedMode.IsEmpty())
+                    {
+                        continue;
+                    }
+
+                    if (sessionMode.Contains(cleanedMode, StringComparer.InvariantCultureIgnoreCase))
+                    {
+                        allow = true;
+                        break;
+                    }
+                }
+            }
+
+            if (useExportDeterminationMethodResult.HasValue)
+            {
+                allow = useExportDeterminationMethodResult.Value;
+            }
+
+            return allow;
         }
 
         protected virtual bool GetAllowMultipleInstances ()
@@ -539,6 +683,40 @@ namespace Logger.Core.Hosting
         protected virtual Version GetApplicationVersion ()
         {
             return this.ApplicationAssembly.GetProductVersion();
+        }
+
+        protected virtual void GetCatalogAssemblies (ISet<Assembly> catalogAssemblies)
+        {
+            HashSet<Assembly> candidates = new HashSet<Assembly>();
+
+            candidates.Add(this.GetType().Assembly);
+            candidates.Add(this.Application.GetType().Assembly);
+            candidates.Add(this.ApplicationAssembly);
+
+            Assembly entryAssembly = Assembly.GetEntryAssembly();
+            if (entryAssembly != null)
+            {
+                candidates.Add(entryAssembly);
+            }
+
+            candidates.Remove(typeof(Bootstrapper).Assembly);
+
+            catalogAssemblies.AddRange(candidates);
+        }
+
+        protected virtual void GetCatalogFiles (ISet<FilePath> catalogFiles)
+        {
+            FilePath fileSearchPattern = this.ApplicationDirectory.Append(new FilePath(this.GetModuleFileSearchPattern()));
+            List<FilePath> candidates = fileSearchPattern.FindWildcardedFiles(true).ToList();
+
+            FilePath bootstrapperFile = typeof(Bootstrapper).Assembly.GetFile();
+            candidates.RemoveAll(x => x.Equals(bootstrapperFile));
+
+            catalogFiles.AddRange(candidates);
+        }
+
+        protected virtual void GetCatalogTypes (ISet<Type> catalogTypes)
+        {
         }
 
         protected virtual DirectoryPath GetDataDirectory ()
@@ -626,6 +804,39 @@ namespace Logger.Core.Hosting
             return !sessionMutexCreated;
         }
 
+        protected virtual IEnumerable<ComposablePartDefinition> GetHostingProvidedPartsToRegister ()
+        {
+            List<ComposablePartDefinition> parts = new List<ComposablePartDefinition>();
+            ComposablePartCatalog defaultHostingProvidedParts = new AssemblyCatalog(Assembly.GetAssembly(typeof(Bootstrapper)));
+
+            foreach (ComposablePartDefinition hostingProvidedPart in defaultHostingProvidedParts.Parts)
+            {
+                foreach (ExportDefinition hostingProvidedExport in hostingProvidedPart.ExportDefinitions)
+                {
+                    bool found = false;
+
+                    foreach (ComposablePartDefinition existingPart in this.Catalog.Parts)
+                    {
+                        foreach (ExportDefinition existingExport in existingPart.ExportDefinitions)
+                        {
+                            if (string.Equals(hostingProvidedExport.ContractName, existingExport.ContractName, StringComparison.Ordinal))
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (( !found || !hostingProvidedExport.ContractName.EndsWith("Manager", StringComparison.InvariantCultureIgnoreCase) ) && !parts.Contains(hostingProvidedPart))
+                    {
+                        parts.Add(hostingProvidedPart);
+                    }
+                }
+            }
+
+            return parts;
+        }
+
         protected virtual void GetInitialSettings (IDictionary<string, IList<string>> initialSettings)
         {
             IDictionary<string, IList<string>> commandLineParameters = null;
@@ -662,6 +873,11 @@ namespace Logger.Core.Hosting
 
 				initialSettings[environmentVariable.Key].AddRange(environmentVariable.Value);
 			}*/
+        }
+
+        protected virtual string GetModuleFileSearchPattern ()
+        {
+            return Bootstrapper.DefaultModuleFileSearchPattern;
         }
 
         protected virtual string GetPrimaryThreadName ()
@@ -807,6 +1023,199 @@ namespace Logger.Core.Hosting
             catch (Exception exception)
             {
                 this.LogManager.Value.Log(this.GetType().Name, LogLevel.Warning, "Startup log exception:{0}{1}", Environment.NewLine, exception.ToDetailedString(' '));
+            }
+        }
+
+        #endregion
+
+
+
+
+        #region Overrides
+
+        public sealed override void RegisterDefaultTypesIfMissing ()
+        {
+            base.RegisterDefaultTypesIfMissing();
+        }
+
+        protected override void ConfigureAggregateCatalog ()
+        {
+            base.ConfigureAggregateCatalog();
+
+            HashSet<Assembly> catalogAssemblies = new HashSet<Assembly>(new EnhancedEqualityComparer<Assembly>((x, y) => string.Equals(x.FullName, y.FullName, StringComparison.InvariantCultureIgnoreCase)));
+            this.GetCatalogAssemblies(catalogAssemblies);
+
+            HashSet<FilePath> catalogFiles = new HashSet<FilePath>();
+            this.GetCatalogFiles(catalogFiles);
+            foreach (FilePath catalogFile in catalogFiles)
+            {
+                Assembly loadedAssembly = Assembly.LoadFrom(catalogFile.Path);
+                catalogAssemblies.Add(loadedAssembly);
+            }
+
+            HashSet<Type> catalogTypes = new HashSet<Type>();
+            this.GetCatalogTypes(catalogTypes);
+
+            foreach (Assembly catalogAssembly in catalogAssemblies)
+            {
+                this.Catalog.Catalogs.Add(new AssemblyCatalog(catalogAssembly));
+            }
+
+            this.Catalog.Catalogs.Add(new TypeCatalog(catalogTypes));
+
+            ComposablePartCatalog hostingProvidedCatalog = this.CreatingHostingProvidedCatalog();
+            this.Catalog.Catalogs.Add(hostingProvidedCatalog);
+        }
+
+        protected override void ConfigureContainer ()
+        {
+            base.ConfigureContainer();
+
+            this.Container.ComposeExportedValue(this);
+            this.Container.ComposeExportedValue<ISessionShutdownAware>(this);
+            this.Container.ComposeExportedValue<ISessionCultureAware>(this);
+
+            this.Container.ComposeExportedValue(this.Application);
+
+            CompositionBatch batch = new CompositionBatch();
+            batch.AddPart(this);
+            batch.AddPart(this.Application);
+            this.Container.Compose(batch);
+
+            this.CreateEnvironmentVariables();
+
+            this.SplashScreenManager.Value.ShowAll();
+            this.SplashScreenManager.Value.MoveAllToPrimaryScreen();
+            this.SplashScreenManager.Value.MoveAllToForeground();
+        }
+
+        protected sealed override void ConfigureModuleCatalog ()
+        {
+            base.ConfigureModuleCatalog();
+        }
+
+        protected override RegionAdapterMappings ConfigureRegionAdapterMappings ()
+        {
+            RegionAdapterMappings mappings = base.ConfigureRegionAdapterMappings();
+
+            IRegionBehaviorFactory factory = base.Container.GetExportedValueOrDefault<IRegionBehaviorFactory>();
+
+            if (( mappings != null ) && ( factory != null ))
+            {
+                mappings.RegisterMapping(typeof(DockingManager), new DockingManagerRegionAdapter(factory));
+                mappings.RegisterMapping(typeof(Ribbon), new RibbonRegionAdapter(factory));
+                mappings.RegisterMapping(typeof(RibbonTabItem), new RibbonTabItemRegionAdapter(factory));
+            }
+
+            return mappings;
+        }
+
+        protected sealed override void ConfigureServiceLocator ()
+        {
+            base.ConfigureServiceLocator();
+        }
+
+        protected sealed override AggregateCatalog CreateAggregateCatalog ()
+        {
+            this.Catalog = new AggregateCatalog();
+            FilteredCatalog filteredCatalog = new FilteredCatalog(this.Catalog, x => this.DetermineUseExport(x.Item1, x.Item2));
+            return new AggregateCatalog(filteredCatalog);
+        }
+
+        protected sealed override CompositionContainer CreateContainer ()
+        {
+            return base.CreateContainer();
+        }
+
+        protected sealed override ILoggerFacade CreateLogger ()
+        {
+            return new DelegateLogger((message, category, priority) =>
+            {
+                Lazy<ILogManager> logger = this.LogManager;
+                if (logger != null)
+                {
+                    logger.Value.Log(this.GetType().Name, this.ConvertCategoryToLogLevel(category), message);
+                }
+            });
+        }
+
+        protected sealed override IModuleCatalog CreateModuleCatalog ()
+        {
+            return base.CreateModuleCatalog();
+        }
+
+        protected sealed override DependencyObject CreateShell ()
+        {
+            return this.ShellManager.Value.GetMainWindow();
+        }
+
+        protected sealed override void InitializeModules ()
+        {
+            base.InitializeModules();
+        }
+
+        protected sealed override void InitializeShell ()
+        {
+            base.InitializeShell();
+        }
+
+        protected sealed override void RegisterBootstrapperProvidedTypes ()
+        {
+            base.RegisterBootstrapperProvidedTypes();
+        }
+
+        protected sealed override void RegisterFrameworkExceptionTypes ()
+        {
+            base.RegisterFrameworkExceptionTypes();
+        }
+
+        #endregion
+
+
+
+
+        #region Interface: ISessionCultureAware
+
+        public virtual void OnFormattingCultureChanged (CultureInfo formattingCulture)
+        {
+            this.SessionManager.Value.Dispatcher.BeginInvoke(DispatcherPriority.Send, new Action<CultureInfo>(x =>
+            {
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Setting formatting culture for main dispatcher thread: {0} -> [{1}]", this.SessionManager.Value.Dispatcher.Thread.ManagedThreadId, x);
+                this.SessionManager.Value.Dispatcher.Thread.CurrentCulture = x;
+                CultureInfo.DefaultThreadCurrentCulture = x;
+            }), formattingCulture);
+        }
+
+        public virtual void OnUiCultureChanged (CultureInfo uiCulture)
+        {
+            this.SessionManager.Value.Dispatcher.BeginInvoke(DispatcherPriority.Send, new Action<CultureInfo>(x =>
+            {
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Setting UI culture for main dispatcher thread: {0} -> [{1}]", this.SessionManager.Value.Dispatcher.Thread.ManagedThreadId, x);
+                this.SessionManager.Value.Dispatcher.Thread.CurrentUICulture = x;
+                CultureInfo.DefaultThreadCurrentUICulture = x;
+            }), uiCulture);
+        }
+
+        #endregion
+
+
+
+
+        #region Interface: ISessionShutdownAware
+
+        public virtual void OnShutdown (int exitCode)
+        {
+            if (!this.IsShuttingDown)
+            {
+                this.IsShuttingDown = true;
+
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Information, "-------------------- BEGIN SHUTDOWN --------------------");
+
+                this.SessionManager.Value.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, new Action<int>(x =>
+                {
+                    this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Calling application shutdown");
+                    this.Application.Shutdown(x);
+                }), exitCode);
             }
         }
 

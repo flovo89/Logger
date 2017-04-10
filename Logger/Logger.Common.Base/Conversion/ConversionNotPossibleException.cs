@@ -14,12 +14,12 @@ namespace Logger.Common.Base.Conversion
         #region Instance Constructor/Destructor
 
         public ConversionNotPossibleException (Type sourceType, Type targetType)
-                : base(string.Format(CultureInfo.InvariantCulture, Resources.ConversionNotPossibleException, sourceType.FullName, targetType.FullName))
+                : base(string.Format(CultureInfo.InvariantCulture, Properties.Resources.ConversionNotPossibleException, sourceType.FullName, targetType.FullName))
         {
         }
 
         public ConversionNotPossibleException (Type sourceType, Type targetType, Exception innerException)
-                : base(string.Format(CultureInfo.InvariantCulture, Resources.ConversionNotPossibleException, sourceType.FullName, targetType.FullName), innerException)
+                : base(string.Format(CultureInfo.InvariantCulture, Properties.Resources.ConversionNotPossibleException, sourceType.FullName, targetType.FullName), innerException)
         {
         }
 

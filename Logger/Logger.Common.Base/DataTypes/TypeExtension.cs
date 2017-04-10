@@ -61,7 +61,7 @@ namespace Logger.Common.Base.DataTypes
             {
                 if (parameterTypes.Length != parameterValues.Length)
                 {
-                    throw new ArgumentException(Resources.TypeExtensions_ParameterTypeCountMismatchParameterValueCount, nameof(parameterTypes));
+                    throw new ArgumentException(Properties.Resources.TypeExtensions_ParameterTypeCountMismatchParameterValueCount, nameof(parameterTypes));
                 }
             }
 
@@ -69,12 +69,12 @@ namespace Logger.Common.Base.DataTypes
 
             if (methods.Length == 0)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_NoMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_NoMatchingMembers, name));
             }
 
             if (methods.Length != 1)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_TooManyMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_TooManyMatchingMembers, name));
             }
 
             return methods[0].Invoke(instance, parameterValues);
@@ -435,7 +435,7 @@ namespace Logger.Common.Base.DataTypes
             {
                 if (indexerTypes.Length != indexer.Length)
                 {
-                    throw new ArgumentException(Resources.TypeExtensions_ParameterTypeCountMismatchParameterValueCount, nameof(indexerTypes));
+                    throw new ArgumentException(Properties.Resources.TypeExtensions_ParameterTypeCountMismatchParameterValueCount, nameof(indexerTypes));
                 }
             }
 
@@ -443,12 +443,12 @@ namespace Logger.Common.Base.DataTypes
 
             if (properties.Length == 0)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_NoMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_NoMatchingMembers, name));
             }
 
             if (properties.Length != 1)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_TooManyMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_TooManyMatchingMembers, name));
             }
 
             return properties[0].GetValue(instance, indexer);
@@ -480,12 +480,12 @@ namespace Logger.Common.Base.DataTypes
 
             if (properties.Length == 0)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_NoMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_NoMatchingMembers, name));
             }
 
             if (properties.Length != 1)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_TooManyMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_TooManyMatchingMembers, name));
             }
 
             return properties[0].GetValue(instance, null);
@@ -585,7 +585,7 @@ namespace Logger.Common.Base.DataTypes
             {
                 if (indexerTypes.Length != indexer.Length)
                 {
-                    throw new ArgumentException(Resources.TypeExtensions_ParameterTypeCountMismatchParameterValueCount, nameof(indexerTypes));
+                    throw new ArgumentException(Properties.Resources.TypeExtensions_ParameterTypeCountMismatchParameterValueCount, nameof(indexerTypes));
                 }
             }
 
@@ -593,12 +593,12 @@ namespace Logger.Common.Base.DataTypes
 
             if (properties.Length == 0)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_NoMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_NoMatchingMembers, name));
             }
 
             if (properties.Length != 1)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_TooManyMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_TooManyMatchingMembers, name));
             }
 
             properties[0].SetValue(instance, value, indexer);
@@ -635,12 +635,12 @@ namespace Logger.Common.Base.DataTypes
 
             if (properties.Length == 0)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_NoMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_NoMatchingMembers, name));
             }
 
             if (properties.Length != 1)
             {
-                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Resources.TypeExtensions_TooManyMatchingMembers, name));
+                throw new AmbiguousMatchException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.TypeExtensions_TooManyMatchingMembers, name));
             }
 
             properties[0].SetValue(instance, value, null);

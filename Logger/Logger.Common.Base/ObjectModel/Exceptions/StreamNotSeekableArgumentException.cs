@@ -12,7 +12,7 @@ namespace Logger.Common.Base.ObjectModel.Exceptions
         #region Instance Constructor/Destructor
 
         public StreamNotSeekableArgumentException (string paramName)
-                : base(Resources.StreamNotSeekableArgumentException, paramName)
+                : base(Properties.Resources.StreamNotSeekableArgumentException, paramName)
         {
         }
 

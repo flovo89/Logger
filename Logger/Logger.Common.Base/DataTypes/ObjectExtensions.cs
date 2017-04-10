@@ -104,7 +104,7 @@ namespace Logger.Common.Base.DataTypes
             }
             catch (Exception exception)
             {
-                throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, Resources.ObjectExtensions_DeepCloning_ObjectNotCloneable, obj.GetType().FullName), exception);
+                throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.ObjectExtensions_DeepCloning_ObjectNotCloneable, obj.GetType().FullName), exception);
             }
         }
 

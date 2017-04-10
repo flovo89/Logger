@@ -12,7 +12,7 @@ namespace Logger.Common.Base.ObjectModel.Exceptions
         #region Instance Constructor/Destructor
 
         public PathNotAbsoluteArgumentException (string paramName)
-                : base(Resources.PathNotAbsoluteArgumentException, paramName)
+                : base(Properties.Resources.PathNotAbsoluteArgumentException, paramName)
         {
         }
 

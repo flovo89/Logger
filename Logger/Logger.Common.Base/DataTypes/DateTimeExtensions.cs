@@ -28,7 +28,7 @@ namespace Logger.Common.Base.DataTypes
 
         public static string ToTechnical (this DateTime dateTime, char separator)
         {
-            return dateTime.ToTechnical((char)new string(separator, 1));
+            return dateTime.ToTechnical(new string(separator, 1));
         }
 
         public static string ToTechnical (this DateTime dateTime, string separator)

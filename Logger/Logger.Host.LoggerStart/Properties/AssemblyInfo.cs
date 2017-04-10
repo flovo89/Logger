@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("Logger.Host.LoggerStart")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Flos Fabric")]
 [assembly: AssemblyProduct("Logger.Host.LoggerStart")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]

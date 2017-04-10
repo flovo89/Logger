@@ -12,7 +12,7 @@ namespace Logger.Common.Base.ObjectModel.Exceptions
         #region Instance Constructor/Destructor
 
         public StreamNotWriteableArgumentException (string paramName)
-                : base(Resources.StreamNotWriteableArgumentException, paramName)
+                : base(Properties.Resources.StreamNotWriteableArgumentException, paramName)
         {
         }
 

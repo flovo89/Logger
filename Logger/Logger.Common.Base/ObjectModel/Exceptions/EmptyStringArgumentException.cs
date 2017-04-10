@@ -13,7 +13,7 @@ namespace Logger.Common.Base.ObjectModel.Exceptions
         #region Instance Constructor/Destructor
 
         public EmptyStringArgumentException (string paramName)
-                : base(Resources.EmptyStringArgumentException, paramName)
+                : base(Properties.Resources.EmptyStringArgumentException, paramName)
         {
         }
 

@@ -43,6 +43,10 @@
       <HintPath>..\packages\Prism.Interactivity.5.0.0\lib\NET45\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Practices.Prism.MefExtensions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.MEFExtensions.5.0.0\lib\NET45\Microsoft.Practices.Prism.MefExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism.Mvvm, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.Mvvm.dll</HintPath>
       <Private>True</Private>
@@ -125,6 +129,10 @@
     <ProjectReference Include="..\Logger.Core.Hosting\Logger.Core.Hosting.csproj">
       <Project>{f908fa56-e3fc-44db-a712-0dac6f381f86}</Project>
       <Name>Logger.Core.Hosting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logger.Core.Interfaces\Logger.Core.Interfaces.csproj">
+      <Project>{ecd71f25-6972-491e-99a8-cf2587317501}</Project>
+      <Name>Logger.Core.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
