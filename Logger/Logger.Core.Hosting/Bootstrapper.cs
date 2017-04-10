@@ -8,8 +8,10 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 
 using Logger.Common.Base.Collections.Generic;
 using Logger.Common.Base.DataTypes;
@@ -18,9 +20,11 @@ using Logger.Common.Base.IO.Keyboard;
 using Logger.Common.Base.Reflection;
 using Logger.Common.Base.Runtime;
 using Logger.Common.Base.Threading;
+using Logger.Common.Base.User;
 using Logger.Core.Hosting.Properties;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
+using Logger.Core.Interfaces.Resources;
 using Logger.Core.Interfaces.Settings;
 
 using Prism.Mef;
@@ -135,8 +139,14 @@ namespace Logger.Core.Hosting
         [Import (typeof(ILogManager), AllowDefault = true, AllowRecomposition = true, RequiredCreationPolicy = CreationPolicy.Shared)]
         protected internal Lazy<ILogManager> LogManager { get; private set; }
 
+        [Import (typeof(IResourceManager), AllowDefault = true, AllowRecomposition = true, RequiredCreationPolicy = CreationPolicy.Shared)]
+        protected internal Lazy<IResourceManager> ResourceManager { get; private set; }
+
         [Import (typeof(ISessionManager), AllowDefault = true, AllowRecomposition = true, RequiredCreationPolicy = CreationPolicy.Shared)]
         protected internal Lazy<ISessionManager> SessionManager { get; private set; }
+
+        [Import (typeof(ISettingManager), AllowDefault = true, AllowRecomposition = true, RequiredCreationPolicy = CreationPolicy.Shared)]
+        protected internal Lazy<ISettingManager> SettingManager { get; private set; }
 
         #endregion
 
@@ -378,10 +388,55 @@ namespace Logger.Core.Hosting
                 base.Run(runWithDefaultConfiguration);
 
                 this.SettingManager.Value.Load();
-                this.LicenseManager.Value.Load();
                 this.ResourceManager.Value.Load();
 
                 this.LogManager.Value.Log(this.GetType().Name, LogLevel.Information, "-------------------- BOOTSTRAPPING COMPLETED --------------------");
+
+                this.SessionManager.Value.Dispatcher.Invoke(DispatcherPriority.SystemIdle, new Action(() =>
+                {
+                }));
+
+                this.LogStartup();
+
+                int exitCode = this.Application.Run();
+
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Information, "-------------------- OPERATIONS COMPLETED --------------------");
+
+                this.ResourceManager.Value.Save();
+                this.SettingManager.Value.Save();
+
+                this.SessionManager.Value.Dispatcher.Invoke(DispatcherPriority.ApplicationIdle, new Action(() =>
+                {
+                }));
+
+                switch (exitCode)
+                {
+                    case SessionExitCodes.LogoffSystem:
+                    {
+                        this.LogManager.Value.Log(this.GetType().Name, LogLevel.Information, "Logging off system");
+                        WindowsSession.Logoff(false);
+                        break;
+                    }
+
+                    case SessionExitCodes.ShutdownSystem:
+                    {
+                        this.LogManager.Value.Log(this.GetType().Name, LogLevel.Information, "Shutting down system");
+                        WindowsSession.Shutdown(false);
+                        break;
+                    }
+
+                    case SessionExitCodes.RestartSystem:
+                    {
+                        this.LogManager.Value.Log(this.GetType().Name, LogLevel.Information, "Restarting system");
+                        WindowsSession.Restart(false);
+                        break;
+                    }
+                }
+
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Information, "-------------------- SHUTDOWN COMPLETED --------------------");
+
+                Environment.ExitCode = exitCode;
+                return Environment.ExitCode;
             }
             catch
             {
@@ -695,6 +750,64 @@ namespace Logger.Core.Hosting
             }
 
             return Environment.UserInteractive;
+        }
+
+        protected virtual void LogStartup ()
+        {
+            try
+            {
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Application name:              {0}", this.ApplicationName);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Application version:           {0}", this.ApplicationVersion.ToString(4));
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Application company:           {0}", this.ApplicationCompany);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Application copyright:         {0}", this.ApplicationCopyright);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Application assembly:          {0}", this.ApplicationAssembly.FullName);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Application directory:         {0}", this.ApplicationDirectory);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Application directory size:    {0}", this.ApplicationDirectory.Size);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Application ID:                {0}", this.ApplicationId.ToString("N"));
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Allow multiple instances:      {0}", this.AllowMultipleInstances);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Has multiple instances:        {0}", this.HasMultipleInstances);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Data directory:                {0}", this.DataDirectory);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Data directory size:           {0}", this.DataDirectory.Size);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Temporary directory:           {0}", this.TemporaryDirectory);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Initial formatting culture:    {0}", this.InitialFormattingCulture);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Initial UI culture:            {0}", this.InitialUiCulture);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Installed UI culture:          {0}", CultureInfo.InstalledUICulture);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Current formatting culture:    {0}", CultureInfo.CurrentCulture);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Current UI culture:            {0}", CultureInfo.CurrentUICulture);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Primary thread ID:             {0}", this.PrimaryThread.ManagedThreadId);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Primary thread priority:       {0}", this.PrimaryThread.Priority);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Primary thread name:           {0}", this.PrimaryThread.Name);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Process ID:                    {0}", this.Process.Id);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Process priority:              {0}", this.Process.PriorityClass);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Splash screen thread priority: {0}", this.SplashScreenThreadPriority);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Splash screen thread name:     {0}", this.SplashScreenThreadName);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Main window:                   {0}", this.Application.MainWindow.GetType().FullName);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Startup timestamp:             {0}", this.Process.StartTime.ToTechnical('-'));
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Session ID:                    {0}", this.SessionId.ToString("N"));
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Interactive session:           {0}", this.UserInteractive);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Debug mode:                    {0}", this.DebugMode);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Shutdown mode:                 {0}", this.Application.ShutdownMode);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Computer:                      {0}", SystemUsers.NetworkDomain + "\\" + SystemUsers.LocalDomain);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "User:                          {0}", SystemUsers.CurrentDomain + "\\" + SystemUsers.CurrentUser);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "64 bit process:                {0}", Environment.Is64BitProcess);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "64 bit OS:                     {0}", Environment.Is64BitOperatingSystem);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "OS version:                    {0}", Environment.OSVersion.ToString());
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Default encoding:              {0}", Encoding.Default.EncodingName);
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Machine ID:                    {0}", UniqueIdentification.GetLocalMachineId().ToString("N"));
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Domain ID:                     {0}", UniqueIdentification.GetNetworkDomainId().ToString("N"));
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Current log folder:            {0}", this.LogManager.Value.GetCurrentLogDirectory());
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Common log folder:             {0}", this.LogManager.Value.GetCommonLogDirectory());
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Common log folder size:        {0}", this.LogManager.Value.GetCommonLogDirectory().Size);
+
+                foreach (string sessionMode in this.SessionMode)
+                {
+                    this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Session mode:                  {0}.", sessionMode);
+                }
+            }
+            catch (Exception exception)
+            {
+                this.LogManager.Value.Log(this.GetType().Name, LogLevel.Warning, "Startup log exception:{0}{1}", Environment.NewLine, exception.ToDetailedString(' '));
+            }
         }
 
         #endregion

@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,6 +53,7 @@
     <Compile Include="Comparison\ObjectComparer.cs" />
     <Compile Include="Comparison\OrderCompare.cs" />
     <Compile Include="Conversion\ConversionNotPossibleException.cs" />
+    <Compile Include="DataTypes\DateTimeExtensions.cs" />
     <Compile Include="DataTypes\ExceptionExtensions.cs" />
     <Compile Include="DataTypes\ObjectExtensions.cs" />
     <Compile Include="DataTypes\StringExtensions.cs" />
@@ -90,8 +92,16 @@
     <Compile Include="Reflection\AssemblyGuidFlags.cs" />
     <Compile Include="Runtime\CommandLine.cs" />
     <Compile Include="Runtime\OperatingSystemExtensions.cs" />
+    <Compile Include="Runtime\Privileges.cs" />
+    <Compile Include="Runtime\SecurityEntity.cs" />
+    <Compile Include="Runtime\UniqueIdentification.cs" />
+    <Compile Include="Runtime\WindowsApi.cs" />
+    <Compile Include="Runtime\WindowsError.cs" />
+    <Compile Include="Runtime\WindowsSession.cs" />
     <Compile Include="Runtime\WindowsVersion.cs" />
     <Compile Include="Threading\DispatcherExtensions.cs" />
+    <Compile Include="User\SystemUsers.cs" />
+    <Compile Include="User\UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

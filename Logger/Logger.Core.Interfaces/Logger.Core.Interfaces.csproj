@@ -78,8 +78,11 @@
     <Compile Include="Logging\ILogManager.cs" />
     <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\IResourceSet.cs" />
+    <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="SessionExitCodes.cs" />
     <Compile Include="SessionModeAttribute.cs" />
+    <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="Settings\SettingNames.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Session\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
