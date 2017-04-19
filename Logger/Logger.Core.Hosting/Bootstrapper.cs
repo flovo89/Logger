@@ -407,7 +407,7 @@ namespace Logger.Core.Hosting
                 // 6. RegisterDefaultTypesIfMissing()
                 // 7. CreateContainer()
                 // 8. ConfigureContainer()
-                // 9. RegisterBootstrapperProvidedTypes
+                // 9. RegisterBootstrapperProvidedTypes()
                 //10. ConfigureServiceLocator()
                 //11. ConfigureRegionAdapterMappings()
                 //12. ConfigureDefaultRegionBehaviors()

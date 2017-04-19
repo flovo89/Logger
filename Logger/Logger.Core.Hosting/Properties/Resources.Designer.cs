@@ -160,6 +160,15 @@ namespace Logger.Core.Hosting.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mainwindow is required..
+        /// </summary>
+        internal static string Bootstrapper_MainWindowInstanceIsRequired {
+            get {
+                return ResourceManager.GetString("Bootstrapper_MainWindowInstanceIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Temporary directory is required and cannot be null or empty..
         /// </summary>
         internal static string Bootstrapper_TemporaryDirectoryIsRequired {

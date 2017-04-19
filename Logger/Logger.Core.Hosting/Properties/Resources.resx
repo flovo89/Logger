@@ -150,6 +150,9 @@
   <data name="Bootstrapper_InvalidOSVersion" xml:space="preserve">
     <value>The OS Version ist not supported.</value>
   </data>
+  <data name="Bootstrapper_MainWindowInstanceIsRequired" xml:space="preserve">
+    <value>Mainwindow is required.</value>
+  </data>
   <data name="Bootstrapper_TemporaryDirectoryIsRequired" xml:space="preserve">
     <value>Temporary directory is required and cannot be null or empty.</value>
   </data>

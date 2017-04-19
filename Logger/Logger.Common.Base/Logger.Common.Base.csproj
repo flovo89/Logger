@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Logger.Common.Base</RootNamespace>
     <AssemblyName>Logger.Common.Base</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -74,6 +75,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.2.2.0.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -96,6 +98,7 @@
     <Compile Include="AvalonDock\DockingManagerRegionAdapter.cs" />
     <Compile Include="AvalonDock\IPaneViewInfo.cs" />
     <Compile Include="Collections\Generic\ICollectionExtensions.cs" />
+    <Compile Include="Collections\Generic\IDictionaryExtensions.cs" />
     <Compile Include="Collections\Generic\IEnumerableExtensions.cs" />
     <Compile Include="Collections\Generic\IListExtensions.cs" />
     <Compile Include="Comparison\EnhancedComparer.cs" />
@@ -115,6 +118,8 @@
     <Compile Include="DataTypes\TypeExtension.cs" />
     <Compile Include="FluentRibbon\RibbonRegionAdapter.cs" />
     <Compile Include="FluentRibbon\RibbonTabItemRegionAdapter.cs" />
+    <Compile Include="Imaging\BitmapExtensions.cs" />
+    <Compile Include="Imaging\IconExtensions.cs" />
     <Compile Include="IO\Files\DirectoryPath.cs" />
     <Compile Include="IO\Files\FilePath.cs" />
     <Compile Include="IO\Files\PathString.cs" />
@@ -137,6 +142,7 @@
     <Compile Include="ObjectModel\Exceptions\StreamNotReadableArgumentException.cs" />
     <Compile Include="ObjectModel\Exceptions\StreamNotSeekableArgumentException.cs" />
     <Compile Include="ObjectModel\Exceptions\StreamNotWriteableArgumentException.cs" />
+    <Compile Include="ObjectModel\ICloneable.cs" />
     <Compile Include="ObjectModel\ISynchronizable.cs" />
     <Compile Include="Prism\DelegateLogger.cs" />
     <Compile Include="Prism\ViewSortHintComparer.cs" />
@@ -162,6 +168,9 @@
     <Compile Include="Threading\DispatcherExtensions.cs" />
     <Compile Include="User\SystemUsers.cs" />
     <Compile Include="User\UserProfile.cs" />
+    <Compile Include="Windows\SystemWindows.cs" />
+    <Compile Include="Windows\TemporaryCursor.cs" />
+    <Compile Include="Windows\WindowExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
