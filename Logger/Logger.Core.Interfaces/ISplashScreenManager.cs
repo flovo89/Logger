@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-using Logger.Common.Base.ObjectModel;
+using Logger.Common.ObjectModel;
 
 
 

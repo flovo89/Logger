@@ -6,15 +6,14 @@ using System.Runtime.Serialization;
 using System.Security.AccessControl;
 using System.Text;
 
-using Logger.Common.Base.DataTypes;
-using Logger.Common.Base.IO.Streams;
-using Logger.Common.Base.ObjectModel.Exceptions;
-using Logger.Common.Base.Properties;
+using Logger.Common.DataTypes;
+using Logger.Common.IO.Streams;
+using Logger.Common.ObjectModel.Exceptions;
 
 
 
 
-namespace Logger.Common.Base.IO.Files
+namespace Logger.Common.IO.Files
 {
     [Serializable]
     public sealed class FilePath : PathString,

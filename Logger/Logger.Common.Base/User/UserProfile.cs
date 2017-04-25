@@ -1,4 +1,4 @@
-﻿namespace Logger.Common.Base.User
+﻿namespace Logger.Common.User
 {
     public sealed class UserProfile
     {

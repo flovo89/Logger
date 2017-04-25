@@ -2,12 +2,10 @@
 using System.Globalization;
 using System.Runtime.Serialization;
 
-using Logger.Common.Base.Properties;
 
 
 
-
-namespace Logger.Common.Base.Conversion
+namespace Logger.Common.Conversion
 {
     public class ConversionNotPossibleException : NotSupportedException
     {

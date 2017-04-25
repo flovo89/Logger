@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Logger.Common.Base.DataTypes;
+using Logger.Common.DataTypes;
 
 
 
 
-namespace Logger.Common.Base.Comparison
+namespace Logger.Common.Comparison
 {
     public static class ObjectComparer
     {

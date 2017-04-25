@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Logger.Common.Base.ObjectModel.Exceptions;
+using Logger.Common.DataTypes;
+using Logger.Common.ObjectModel.Exceptions;
 
 
 
 
-namespace Logger.Common.Base.Runtime
+namespace Logger.Common.Runtime
 {
     public static class CommandLine
     {

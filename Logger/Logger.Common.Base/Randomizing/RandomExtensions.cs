@@ -5,13 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-using Logger.Common.Base.DataTypes;
-using Logger.Common.Base.Resources;
+using Logger.Common.DataTypes;
+using Logger.Common.Resources;
 
 
 
 
-namespace Logger.Common.Base.Randomizing
+namespace Logger.Common.Randomizing
 {
     public static class RandomExtensions
     {

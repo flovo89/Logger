@@ -6,7 +6,7 @@ using System.Linq;
 
 
 
-namespace Logger.Common.Base.Composition
+namespace Logger.Common.Composition
 {
     public sealed class PartCatalog : ComposablePartCatalog
     {

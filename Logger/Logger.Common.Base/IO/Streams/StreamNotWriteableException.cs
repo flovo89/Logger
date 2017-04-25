@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-using Logger.Common.Base.Properties;
 
 
 
-
-namespace Logger.Common.Base.IO.Streams
+namespace Logger.Common.IO.Streams
 {
     public class StreamNotWriteableException : NotSupportedException
     {

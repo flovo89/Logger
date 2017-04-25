@@ -4,7 +4,7 @@ using System.IO;
 
 
 
-namespace Logger.Common.Base.IO.Streams
+namespace Logger.Common.IO.Streams
 {
     public sealed class UnclosableStream : Stream
     {

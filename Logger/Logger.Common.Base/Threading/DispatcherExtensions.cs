@@ -4,7 +4,7 @@ using System.Windows.Threading;
 
 
 
-namespace Logger.Common.Base.Threading
+namespace Logger.Common.Threading
 {
     public static class DispatcherExtensions
     {

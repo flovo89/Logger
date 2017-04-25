@@ -1,32 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Logger.Common.Base.IO.Streams
+
+
+
+namespace Logger.Common.IO.Streams
 {
     public class StreamNotReadableException : NotSupportedException
     {
         #region Instance Constructor/Destructor
 
-        public StreamNotReadableException()
+        public StreamNotReadableException ()
                 : base(Properties.Resources.StreamNotReadableException)
         {
         }
 
-        public StreamNotReadableException(Exception innerException)
+        public StreamNotReadableException (Exception innerException)
                 : base(Properties.Resources.StreamNotReadableException, innerException)
         {
         }
 
-        public StreamNotReadableException(string message, Exception innerException)
+        public StreamNotReadableException (string message, Exception innerException)
                 : base(message, innerException)
         {
         }
 
-        protected StreamNotReadableException(SerializationInfo info, StreamingContext context)
+        protected StreamNotReadableException (SerializationInfo info, StreamingContext context)
                 : base(info, context)
         {
         }

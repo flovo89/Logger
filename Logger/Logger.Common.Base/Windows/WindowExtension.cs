@@ -6,7 +6,7 @@ using System.Windows.Interop;
 
 
 
-namespace Logger.Common.Base.Windows
+namespace Logger.Common.Windows
 {
     public static class WindowExtensions
     {

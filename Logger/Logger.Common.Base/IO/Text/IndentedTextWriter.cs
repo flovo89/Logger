@@ -4,10 +4,12 @@ using System.IO;
 using System.Runtime.Remoting;
 using System.Text;
 
+using Logger.Common.DataTypes;
 
 
 
-namespace Logger.Common.Base.IO.Text
+
+namespace Logger.Common.IO.Text
 {
     public sealed class IndentedTextWriter : TextWriter
     {

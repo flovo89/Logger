@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 
-using Logger.Common.Base.ObjectModel;
+using Logger.Common.ObjectModel;
 
 
 
 
-namespace Logger.Common.Base.IO.Streams
+namespace Logger.Common.IO.Streams
 {
     public sealed class SynchronizedStream : Stream,
             ISynchronizable

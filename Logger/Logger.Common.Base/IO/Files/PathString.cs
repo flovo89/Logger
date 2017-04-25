@@ -6,14 +6,15 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-using Logger.Common.Base.Collections.Generic;
-using Logger.Common.Base.Comparison;
-using Logger.Common.Base.ObjectModel.Exceptions;
+using Logger.Common.Collections.Generic;
+using Logger.Common.Comparison;
+using Logger.Common.DataTypes;
+using Logger.Common.ObjectModel.Exceptions;
 
 
 
 
-namespace Logger.Common.Base.IO.Files
+namespace Logger.Common.IO.Files
 {
     [Serializable]
     public abstract class PathString : IEquatable<PathString>,

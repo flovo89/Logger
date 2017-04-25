@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 
-using Logger.Common.Base.DataTypes;
+using Logger.Common.DataTypes;
 
 using Microsoft.Practices.Prism.Regions;
 
 
 
 
-namespace Logger.Common.Base.Prism
+namespace Logger.Common.Prism
 {
     public sealed class ViewSortHintComparer <T> : IComparer,
             IComparer<T>

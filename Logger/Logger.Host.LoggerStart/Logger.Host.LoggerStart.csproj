@@ -7,7 +7,7 @@
     <ProjectGuid>{60658638-4CD1-4FCA-A8D2-572A87653932}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Logger.Host.LoggerStart</RootNamespace>
+    <RootNamespace>Logger.Host</RootNamespace>
     <AssemblyName>Logger.Host.LoggerStart</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -141,6 +141,17 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>@md "$(SolutionDir)_Output"
+
+@copy "$(TargetDir)*.config" "$(SolutionDir)_Output\*.*"
+@copy "$(TargetDir)*.manifest" "$(SolutionDir)_Output\*.*"
+@copy "$(TargetDir)*.exe" "$(SolutionDir)_Output\*.*"
+@copy "$(TargetDir)*.dll" "$(SolutionDir)_Output\*.*"
+@copy "$(TargetDir)*.pdb" "$(SolutionDir)_Output\*.*"
+
+@del "$(SolutionDir)_Output\*.vshost.*"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

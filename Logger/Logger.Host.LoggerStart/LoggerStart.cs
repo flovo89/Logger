@@ -1,8 +1,8 @@
 ﻿using System;
 
-using Logger.Core.Hosting;
+using Logger.Core;
 using Logger.Core.Interfaces;
-using Logger.Modules.Logger.Core;
+using Logger.Modules.Logger;
 
 
 
@@ -12,7 +12,7 @@ using Logger.Modules.Logger.Core;
 
 
 
-namespace Logger.Host.LoggerStart
+namespace Logger.Host
 {
     public static class LoggerStart
     {

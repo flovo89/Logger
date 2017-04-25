@@ -1,6 +1,7 @@
 ﻿using System;
 
-using Logger.Common.Base.ObjectModel.Exceptions;
+using Logger.Common.DataTypes;
+using Logger.Common.ObjectModel.Exceptions;
 
 
 

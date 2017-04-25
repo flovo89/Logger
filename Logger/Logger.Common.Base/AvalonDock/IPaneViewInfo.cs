@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 
 
-namespace Logger.Common.Base.AvalonDock
+namespace Logger.Common.AvalonDock
 {
     public interface IPaneViewInfo : INotifyPropertyChanged
     {

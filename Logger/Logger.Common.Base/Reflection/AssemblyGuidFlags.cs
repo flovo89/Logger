@@ -3,7 +3,7 @@
 
 
 
-namespace Logger.Common.Base.Reflection
+namespace Logger.Common.Reflection
 {
     [Flags]
     [Serializable]

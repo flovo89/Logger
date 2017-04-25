@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Logger.Host.LoggerStart.Properties {
+namespace Logger.Host.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -6,16 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-using Logger.Common.Base.IO.Files;
-using Logger.Common.Base.ObjectModel;
-using Logger.Common.Base.Windows;
+using Logger.Common.DataTypes;
+using Logger.Common.IO.Files;
+using Logger.Common.ObjectModel;
+using Logger.Common.Windows;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
 
 
 
 
-namespace Logger.Core.Hosting.Logging
+namespace Logger.Core.Logging
 {
     [Export (typeof(ILogManager))]
     [PartCreationPolicy (CreationPolicy.Shared)]

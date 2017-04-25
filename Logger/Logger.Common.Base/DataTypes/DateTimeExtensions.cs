@@ -5,7 +5,7 @@ using System.Text;
 
 
 
-namespace Logger.Common.Base.DataTypes
+namespace Logger.Common.DataTypes
 {
     public static class DateTimeExtensions
     {

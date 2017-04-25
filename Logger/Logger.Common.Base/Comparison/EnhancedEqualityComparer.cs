@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 
 
-namespace Logger.Common.Base.Comparison
+namespace Logger.Common.Comparison
 {
     public sealed class EnhancedEqualityComparer <T> : IEqualityComparer<T>,
             IEqualityComparer
@@ -59,7 +59,7 @@ namespace Logger.Common.Base.Comparison
 
 
 
-        #region Instance Methods
+        #region Interface: IEqualityComparer
 
         public new bool Equals (object x, object y)
         {

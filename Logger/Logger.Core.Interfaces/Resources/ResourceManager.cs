@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 
-using Logger.Common.Base.ObjectModel;
+using Logger.Common.ObjectModel;
 
 
 

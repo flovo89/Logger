@@ -5,8 +5,9 @@ using System.Management;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 
-using Logger.Common.Base.ObjectModel.Exceptions;
-using Logger.Common.Base.Runtime;
+using Logger.Common.DataTypes;
+using Logger.Common.ObjectModel.Exceptions;
+using Logger.Common.Runtime;
 
 
 
@@ -16,7 +17,7 @@ using Logger.Common.Base.Runtime;
 
 
 
-namespace Logger.Common.Base.User
+namespace Logger.Common.User
 {
     public static class SystemUsers
     {

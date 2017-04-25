@@ -1,9 +1,11 @@
 ﻿using System;
 
+using Logger.Common.DataTypes;
 
 
 
-namespace Logger.Common.Base.Runtime
+
+namespace Logger.Common.Runtime
 {
     public static class OperatingSystemExtensions
     {

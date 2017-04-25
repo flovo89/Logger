@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 
 
-namespace Logger.Common.Base.ObjectModel.Exceptions
+namespace Logger.Common.ObjectModel.Exceptions
 {
     [Serializable]
     public class InvalidPathArgumentException : ArgumentException

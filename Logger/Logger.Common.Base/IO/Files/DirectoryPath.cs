@@ -8,13 +8,14 @@ using System.Runtime.Serialization;
 using System.Security.AccessControl;
 using System.Text;
 
-using Logger.Common.Base.Collections.Generic;
-using Logger.Common.Base.ObjectModel.Exceptions;
+using Logger.Common.Collections.Generic;
+using Logger.Common.DataTypes;
+using Logger.Common.ObjectModel.Exceptions;
 
 
 
 
-namespace Logger.Common.Base.IO.Files
+namespace Logger.Common.IO.Files
 {
     [Serializable]
     public sealed class DirectoryPath : PathString,

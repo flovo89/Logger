@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.Composition;
 
+using Logger.Core;
 using Logger.Core.Interfaces;
-using Logger.Core.Modularity;
-using Logger.Modules.Logger.Core;
 
 using Microsoft.Practices.Prism.Commands;
 
 
 
 
-namespace Logger.Modules.Logger.Main
+namespace Logger.Modules.Logger
 {
     [Export (nameof(LoggerMainViewModel))]
     [PartCreationPolicy (CreationPolicy.Shared)]

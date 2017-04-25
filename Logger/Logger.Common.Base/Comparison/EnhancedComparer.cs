@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 
 
-namespace Logger.Common.Base.Comparison
+namespace Logger.Common.Comparison
 {
     public sealed class EnhancedComparer <T> : IComparer<T>,
             IComparer

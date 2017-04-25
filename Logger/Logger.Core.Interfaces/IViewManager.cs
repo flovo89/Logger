@@ -1,4 +1,4 @@
-﻿using Logger.Common.Base.ObjectModel;
+﻿using Logger.Common.ObjectModel;
 
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.Regions;

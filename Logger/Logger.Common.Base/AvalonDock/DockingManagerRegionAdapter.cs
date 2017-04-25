@@ -12,7 +12,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 
 
 
-namespace Logger.Common.Base.AvalonDock
+namespace Logger.Common.AvalonDock
 {
     public sealed class DockingManagerRegionAdapter : RegionAdapterBase<DockingManager>
     {

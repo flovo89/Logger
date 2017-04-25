@@ -7,7 +7,7 @@
     <ProjectGuid>{E299795F-558B-49E8-9FCA-581B33283A21}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Logger.Modules.Logger.Main</RootNamespace>
+    <RootNamespace>Logger.Modules.Logger</RootNamespace>
     <AssemblyName>Logger.Modules.Logger.Main</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ControlzEx, Version=2.1.1.3, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.2.1.1.3\lib\net45\ControlzEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fluent, Version=5.0.1.10, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fluent.Ribbon.5.0.1.10\lib\net45\Fluent.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism.Composition, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Composition.5.0.0\lib\NET45\Microsoft.Practices.Prism.Composition.dll</HintPath>
       <Private>True</Private>
@@ -64,6 +72,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.2.1.1.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -81,6 +93,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -95,7 +108,7 @@
       <Name>Logger.Core.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logger.Core.Modularity\Logger.Core.Modularity.csproj">
-      <Project>{d72c69ed-04f4-48ec-8439-b4463c2558f1}</Project>
+      <Project>{D72C69ED-04F4-48EC-8439-B4463C2558F1}</Project>
       <Name>Logger.Core.Modularity</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logger.Modules.Logger.Core\Logger.Modules.Logger.Core.csproj">
@@ -104,6 +117,17 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>@md "$(SolutionDir)_Output"
+
+@copy "$(TargetDir)*.config" "$(SolutionDir)_Output\*.*"
+@copy "$(TargetDir)*.manifest" "$(SolutionDir)_Output\*.*"
+@copy "$(TargetDir)*.exe" "$(SolutionDir)_Output\*.*"
+@copy "$(TargetDir)*.dll" "$(SolutionDir)_Output\*.*"
+@copy "$(TargetDir)*.pdb" "$(SolutionDir)_Output\*.*"
+
+@del "$(SolutionDir)_Output\*.vshost.*"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

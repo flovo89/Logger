@@ -3,7 +3,7 @@
 
 
 
-namespace Logger.Common.Base.Runtime
+namespace Logger.Common.Runtime
 {
     public static class WindowsVersion
     {

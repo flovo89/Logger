@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-using Logger.Common.Base.Properties;
 
 
 
-
-namespace Logger.Common.Base.ObjectModel.Exceptions
+namespace Logger.Common.ObjectModel.Exceptions
 {
     public class EmptyStringArgumentException : ArgumentException
     {

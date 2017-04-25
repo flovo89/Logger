@@ -1,4 +1,4 @@
-﻿namespace Logger.Modules.Logger.Core
+﻿namespace Logger.Modules.Logger
 {
     public static class SessionModeNames
     {

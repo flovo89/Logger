@@ -5,7 +5,7 @@ using Microsoft.Practices.Prism.Logging;
 
 
 
-namespace Logger.Common.Base.Prism
+namespace Logger.Common.Prism
 {
     public sealed class DelegateLogger : ILoggerFacade
     {

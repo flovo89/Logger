@@ -4,12 +4,13 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 
-using Logger.Common.Base.IO.Files;
+using Logger.Common.DataTypes;
+using Logger.Common.IO.Files;
 
 
 
 
-namespace Logger.Common.Base.Reflection
+namespace Logger.Common.Reflection
 {
     public static class AssemblyExtension
     {

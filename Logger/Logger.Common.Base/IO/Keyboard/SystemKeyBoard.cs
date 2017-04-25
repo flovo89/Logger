@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 
 
-namespace Logger.Common.Base.IO.Keyboard
+namespace Logger.Common.IO.Keyboard
 {
     public static class SystemKeyboard
     {

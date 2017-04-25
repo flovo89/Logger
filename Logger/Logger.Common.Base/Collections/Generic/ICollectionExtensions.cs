@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Logger.Common.Base.DataTypes;
+using Logger.Common.DataTypes;
 
 
 
 
-namespace Logger.Common.Base.Collections.Generic
+namespace Logger.Common.Collections.Generic
 {
     // ReSharper disable once InconsistentNaming
     public static class ICollectionExtensions

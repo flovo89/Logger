@@ -7,8 +7,8 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-using Logger.Common.Base.Imaging;
-using Logger.Common.Base.Windows;
+using Logger.Common.Imaging;
+using Logger.Common.Windows;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
 
@@ -17,7 +17,7 @@ using Cursors = System.Windows.Input.Cursors;
 
 
 
-namespace Logger.Core.Modularity
+namespace Logger.Core
 {
     [InheritedExport (typeof(IShell))]
     public abstract class Shell : Window,

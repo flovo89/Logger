@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 
 
-namespace Logger.Common.Base.Windows
+namespace Logger.Common.Windows
 {
     public sealed class TemporaryCursor : IDisposable
     {

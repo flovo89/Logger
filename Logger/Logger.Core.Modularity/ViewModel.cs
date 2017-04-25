@@ -16,7 +16,7 @@ using Microsoft.Practices.Prism.Regions;
 
 
 
-namespace Logger.Core.Modularity
+namespace Logger.Core
 {
     [InheritedExport (typeof(IViewModel))]
     [InheritedExport (typeof(ISessionCultureAware))]

@@ -4,14 +4,14 @@ using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 
-using Logger.Common.Base.User;
+using Logger.Common.User;
 
 using Microsoft.Win32;
 
 
 
 
-namespace Logger.Common.Base.Runtime
+namespace Logger.Common.Runtime
 {
     public static class UniqueIdentification
     {

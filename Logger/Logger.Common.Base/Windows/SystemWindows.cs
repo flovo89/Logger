@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 
 
-namespace Logger.Common.Base.Windows
+namespace Logger.Common.Windows
 {
     public static class SystemWindows
     {

@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.Composition;
 
+using Logger.Core;
 using Logger.Core.Interfaces;
-using Logger.Core.Modularity;
-using Logger.Modules.Logger.Core;
+
+using Microsoft.Practices.Prism.Regions;
 
 
 
 
-namespace Logger.Modules.Logger.Main
+namespace Logger.Modules.Logger
 {
     [Export (LoggerMainViewShell.ViewName)]
     [PartCreationPolicy (CreationPolicy.Shared)]
@@ -28,9 +29,11 @@ namespace Logger.Modules.Logger.Main
         #region Instance Constructor/Destructor
 
         [ImportingConstructor]
-        public LoggerMainViewShell ()
+        public LoggerMainViewShell (IRegionManager regionManager)
         {
             this.InitializeComponent();
+
+            //RegionManager.SetRegionManager(this.ViewsRibbonTab, regionManager);
         }
 
         #endregion

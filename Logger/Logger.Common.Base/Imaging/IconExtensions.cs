@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 
 
 
-namespace Logger.Common.Base.Imaging
+namespace Logger.Common.Imaging
 {
     public static class IconExtensions
     {

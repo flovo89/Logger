@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 
 
 
-namespace Logger.Common.Base.Resources
+namespace Logger.Common.Resources
 {
     public class ResourceNotFoundException : Exception
     {

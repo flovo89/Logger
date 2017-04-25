@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
-namespace Logger.Common.Base.ObjectModel.Exceptions
+
+
+
+namespace Logger.Common.ObjectModel.Exceptions
 {
     public class PathNotRelativeArgumentException : InvalidPathArgumentException
     {
         #region Instance Constructor/Destructor
 
-        public PathNotRelativeArgumentException(string paramName)
+        public PathNotRelativeArgumentException (string paramName)
                 : base(Properties.Resources.PathNotRelativeArgumentException, paramName)
         {
         }
 
-        protected PathNotRelativeArgumentException(SerializationInfo info, StreamingContext context)
+        protected PathNotRelativeArgumentException (SerializationInfo info, StreamingContext context)
                 : base(info, context)
         {
         }

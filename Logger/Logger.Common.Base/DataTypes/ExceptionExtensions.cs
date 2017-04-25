@@ -3,13 +3,12 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-using Logger.Common.Base.IO.Text;
-using Logger.Common.Base.Properties;
+using Logger.Common.IO.Text;
 
 
 
 
-namespace Logger.Common.Base.DataTypes
+namespace Logger.Common.DataTypes
 {
     public static class ExceptionExtensions
     {

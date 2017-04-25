@@ -9,7 +9,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
-using Logger.Common.Base.IO.Files;
+using Logger.Common.IO.Files;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
 using Logger.Core.Interfaces.Session;
@@ -17,7 +17,7 @@ using Logger.Core.Interfaces.Session;
 
 
 
-namespace Logger.Core.Hosting
+namespace Logger.Core.Session
 {
     [Export (typeof(ISessionManager))]
     [PartCreationPolicy (CreationPolicy.Shared)]

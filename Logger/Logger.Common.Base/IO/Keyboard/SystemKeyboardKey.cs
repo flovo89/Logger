@@ -1,4 +1,4 @@
-﻿namespace Logger.Common.Base.IO.Keyboard
+﻿namespace Logger.Common.IO.Keyboard
 {
     public enum SystemKeyboardKey
     {

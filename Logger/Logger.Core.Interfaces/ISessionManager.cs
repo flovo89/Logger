@@ -7,8 +7,8 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
-using Logger.Common.Base.IO.Files;
-using Logger.Common.Base.ObjectModel;
+using Logger.Common.IO.Files;
+using Logger.Common.ObjectModel;
 
 
 

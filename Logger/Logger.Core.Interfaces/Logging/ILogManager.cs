@@ -1,7 +1,7 @@
 ﻿using System;
 
-using Logger.Common.Base.IO.Files;
-using Logger.Common.Base.ObjectModel;
+using Logger.Common.IO.Files;
+using Logger.Common.ObjectModel;
 
 
 

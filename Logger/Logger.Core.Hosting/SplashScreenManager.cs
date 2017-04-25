@@ -7,8 +7,9 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
 
-using Logger.Common.Base.Collections.Generic;
-using Logger.Common.Base.ObjectModel.Exceptions;
+using Logger.Common.Collections.Generic;
+using Logger.Common.DataTypes;
+using Logger.Common.ObjectModel.Exceptions;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
 using Logger.Core.Interfaces.Session;
@@ -16,7 +17,7 @@ using Logger.Core.Interfaces.Session;
 
 
 
-namespace Logger.Core.Hosting
+namespace Logger.Core
 {
     [Export (typeof(ISplashScreenManager))]
     [Export (typeof(ISessionCultureAware))]

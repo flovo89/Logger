@@ -7,18 +7,18 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 
-using Logger.Common.Base.DataTypes;
-using Logger.Common.Base.ObjectModel.Exceptions;
-using Logger.Core.Hosting.Properties;
+using Logger.Common.DataTypes;
+using Logger.Common.ObjectModel.Exceptions;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
+using Logger.Core.Properties;
 
 using Microsoft.Practices.Prism.Regions;
 
 
 
 
-namespace Logger.Core.Hosting
+namespace Logger.Core
 {
     [Export (typeof(IShellManager))]
     [PartCreationPolicy (CreationPolicy.Shared)]

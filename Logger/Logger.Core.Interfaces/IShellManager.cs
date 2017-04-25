@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 
-using Logger.Common.Base.ObjectModel;
+using Logger.Common.ObjectModel;
 
 
 

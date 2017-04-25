@@ -1,4 +1,4 @@
-﻿namespace Logger.Common.Base.ObjectModel
+﻿namespace Logger.Common.ObjectModel
 {
     public interface ISynchronizable
     {

@@ -11,7 +11,7 @@ using Point = System.Drawing.Point;
 
 
 
-namespace Logger.Common.Base.Imaging
+namespace Logger.Common.Imaging
 {
     public static class BitmapExtensions
     {

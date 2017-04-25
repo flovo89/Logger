@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Logger.Common.Base.DataTypes;
-using Logger.Common.Base.Randomizing;
+using Logger.Common.DataTypes;
+using Logger.Common.Randomizing;
 
 
 
 
-namespace Logger.Common.Base.Collections.Generic
+namespace Logger.Common.Collections.Generic
 {
     // ReSharper disable once InconsistentNaming
     public static class IListExtensions

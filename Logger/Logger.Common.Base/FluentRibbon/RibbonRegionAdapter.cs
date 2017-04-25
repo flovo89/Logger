@@ -2,15 +2,15 @@
 
 using Fluent;
 
-using Logger.Common.Base.Collections.Generic;
-using Logger.Common.Base.Prism;
+using Logger.Common.Collections.Generic;
+using Logger.Common.Prism;
 
 using Microsoft.Practices.Prism.Regions;
 
 
 
 
-namespace Logger.Common.Base.FluentRibbon
+namespace Logger.Common.FluentRibbon
 {
     public sealed class RibbonRegionAdapter : RegionAdapterBase<Ribbon>
     {

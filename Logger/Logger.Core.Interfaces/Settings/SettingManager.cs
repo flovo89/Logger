@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Logger.Common.Base.ObjectModel;
+using Logger.Common.ObjectModel;
 
 
 

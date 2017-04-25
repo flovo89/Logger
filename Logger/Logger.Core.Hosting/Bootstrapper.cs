@@ -16,25 +16,25 @@ using System.Windows.Threading;
 
 using Fluent;
 
-using Logger.Common.Base.AvalonDock;
-using Logger.Common.Base.Collections.Generic;
-using Logger.Common.Base.Comparison;
-using Logger.Common.Base.Composition;
-using Logger.Common.Base.DataTypes;
-using Logger.Common.Base.FluentRibbon;
-using Logger.Common.Base.IO.Files;
-using Logger.Common.Base.IO.Keyboard;
-using Logger.Common.Base.Prism;
-using Logger.Common.Base.Reflection;
-using Logger.Common.Base.Runtime;
-using Logger.Common.Base.Threading;
-using Logger.Common.Base.User;
-using Logger.Core.Hosting.Properties;
+using Logger.Common.AvalonDock;
+using Logger.Common.Collections.Generic;
+using Logger.Common.Comparison;
+using Logger.Common.Composition;
+using Logger.Common.DataTypes;
+using Logger.Common.FluentRibbon;
+using Logger.Common.IO.Files;
+using Logger.Common.IO.Keyboard;
+using Logger.Common.Prism;
+using Logger.Common.Reflection;
+using Logger.Common.Runtime;
+using Logger.Common.Threading;
+using Logger.Common.User;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
 using Logger.Core.Interfaces.Resources;
 using Logger.Core.Interfaces.Session;
 using Logger.Core.Interfaces.Settings;
+using Logger.Core.Properties;
 
 using Microsoft.Practices.Prism.Logging;
 using Microsoft.Practices.Prism.MefExtensions;
@@ -43,12 +43,12 @@ using Microsoft.Practices.Prism.Regions;
 
 using Xceed.Wpf.AvalonDock;
 
-using FilteredCatalog = Logger.Common.Base.Composition.FilteredCatalog;
+using FilteredCatalog = Logger.Common.Composition.FilteredCatalog;
 
 
 
 
-namespace Logger.Core.Hosting
+namespace Logger.Core
 {
     public class Bootstrapper : MefBootstrapper,
             ISessionCultureAware,

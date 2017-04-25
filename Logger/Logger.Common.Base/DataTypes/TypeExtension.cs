@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 
-using Logger.Common.Base.ObjectModel.Exceptions;
-using Logger.Common.Base.Properties;
+using Logger.Common.ObjectModel.Exceptions;
 
 
 
 
-namespace Logger.Common.Base.DataTypes
+namespace Logger.Common.DataTypes
 {
     public static class TypeExtensions
     {

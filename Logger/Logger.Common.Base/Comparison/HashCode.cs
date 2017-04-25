@@ -1,4 +1,4 @@
-﻿namespace Logger.Common.Base.Comparison
+﻿namespace Logger.Common.Comparison
 {
     public delegate int HashCode <in T> (T x);
 }

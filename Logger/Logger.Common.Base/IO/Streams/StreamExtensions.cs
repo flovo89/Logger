@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 
-using Logger.Common.Base.DataTypes;
-using Logger.Common.Base.ObjectModel.Exceptions;
+using Logger.Common.DataTypes;
+using Logger.Common.ObjectModel.Exceptions;
 
 
 
 
-namespace Logger.Common.Base.IO.Streams
+namespace Logger.Common.IO.Streams
 {
     public static class StreamExtensions
     {
