@@ -1,6 +1,13 @@
 ﻿using System;
 
 using Logger.Core.Hosting;
+using Logger.Core.Interfaces;
+using Logger.Modules.Logger.Core;
+
+
+
+
+[assembly: SessionMode (SessionModeNames.Logger)]
 
 
 
