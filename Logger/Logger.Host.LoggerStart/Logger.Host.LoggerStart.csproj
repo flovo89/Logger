@@ -135,9 +135,9 @@
       <Project>{ecd71f25-6972-491e-99a8-cf2587317501}</Project>
       <Name>Logger.Core.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Logger.Modules.Logger.Core\Logger.Modules.Logger.Core.csproj">
+    <ProjectReference Include="..\Logger.Modules.Logger.Core\Logger.Modules.Core.csproj">
       <Project>{4a2eceef-963b-4a88-9ae5-ac333c7899bd}</Project>
-      <Name>Logger.Modules.Logger.Core</Name>
+      <Name>Logger.Modules.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,8 +7,8 @@
     <ProjectGuid>{4A2ECEEF-963B-4A88-9AE5-AC333C7899BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Logger.Modules.Logger</RootNamespace>
-    <AssemblyName>Logger.Modules.Logger.Core</AssemblyName>
+    <RootNamespace>Logger.Modules</RootNamespace>
+    <AssemblyName>Logger.Modules.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

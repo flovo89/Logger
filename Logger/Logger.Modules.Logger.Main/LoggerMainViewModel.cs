@@ -8,7 +8,7 @@ using Microsoft.Practices.Prism.Commands;
 
 
 
-namespace Logger.Modules.Logger
+namespace Logger.Modules
 {
     [Export (nameof(LoggerMainViewModel))]
     [PartCreationPolicy (CreationPolicy.Shared)]

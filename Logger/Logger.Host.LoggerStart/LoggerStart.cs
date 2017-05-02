@@ -2,7 +2,7 @@
 
 using Logger.Core;
 using Logger.Core.Interfaces;
-using Logger.Modules.Logger;
+using Logger.Modules;
 
 
 

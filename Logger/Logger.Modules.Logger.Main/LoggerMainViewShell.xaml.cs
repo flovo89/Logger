@@ -9,7 +9,7 @@ using Microsoft.Practices.Prism.Regions;
 
 
 
-namespace Logger.Modules.Logger
+namespace Logger.Modules
 {
     [Export (LoggerMainViewShell.ViewName)]
     [PartCreationPolicy (CreationPolicy.Shared)]

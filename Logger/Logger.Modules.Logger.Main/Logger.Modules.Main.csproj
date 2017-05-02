@@ -7,8 +7,8 @@
     <ProjectGuid>{E299795F-558B-49E8-9FCA-581B33283A21}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Logger.Modules.Logger</RootNamespace>
-    <AssemblyName>Logger.Modules.Logger.Main</AssemblyName>
+    <RootNamespace>Logger.Modules</RootNamespace>
+    <AssemblyName>Logger.Modules.Main</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -111,9 +111,9 @@
       <Project>{D72C69ED-04F4-48EC-8439-B4463C2558F1}</Project>
       <Name>Logger.Core.Modularity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Logger.Modules.Logger.Core\Logger.Modules.Logger.Core.csproj">
+    <ProjectReference Include="..\Logger.Modules.Logger.Core\Logger.Modules.Core.csproj">
       <Project>{4a2eceef-963b-4a88-9ae5-ac333c7899bd}</Project>
-      <Name>Logger.Modules.Logger.Core</Name>
+      <Name>Logger.Modules.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
