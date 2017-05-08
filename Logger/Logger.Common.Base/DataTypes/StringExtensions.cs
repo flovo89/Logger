@@ -29,6 +29,11 @@ namespace Logger.Common.DataTypes
             "true", "yes", "1", "on", "ja", "oui", "si", "t", "y", "j"
         };
 
+        private static readonly string[] DateTimeSpanSeparatorCandidates =
+        {
+            "", ".", ",", "-", "_", ":", ";", "/", "\\", "+", "#", "|", "¦", "¬", "$", "~"
+        };
+
         #endregion
 
 
@@ -73,6 +78,26 @@ namespace Logger.Common.DataTypes
 
         #region Static Methods
 
+        public static string DoubleOccurrence (this string str, char chr)
+        {
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            return str.ModifyOccurrence(chr, 2.0, 0);
+        }
+
+        public static string HalveOccurrence (this string str, char chr)
+        {
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            return str.ModifyOccurrence(chr, 0.5, 0);
+        }
+
         public static bool IsBoolean (this string str)
         {
             if (str == null)
@@ -95,6 +120,18 @@ namespace Logger.Common.DataTypes
             CultureInfo cultureInfo = StringExtensions.GetCultureInfo(str);
 
             return cultureInfo != null;
+        }
+
+        public static bool IsDateTime (this string str, IFormatProvider formatProvider)
+        {
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            DateTime? value = StringExtensions.GetDateTime(str, formatProvider);
+
+            return value != null;
         }
 
         public static bool IsDirectoryPath (this string str, bool allowWildcards)
@@ -235,6 +272,41 @@ namespace Logger.Common.DataTypes
             return sb.ToString();
         }
 
+        public static string ModifyOccurrence (this string str, char chr, double multiplicator, int addition)
+        {
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            double count = 0;
+
+            StringBuilder newStr = new StringBuilder();
+
+            for (int i1 = 0; i1 < str.Length; i1++)
+            {
+                char next = i1 >= str.Length - 1 ? (char)0 : str[i1 + 1];
+
+                if (str[i1] == chr)
+                {
+                    count += 1.0;
+
+                    if (next != chr)
+                    {
+                        newStr.Append(new string(chr, (int)( count * multiplicator + addition )));
+
+                        count = 0.0;
+                    }
+                }
+                else
+                {
+                    newStr.Append(str[i1]);
+                }
+            }
+
+            return newStr.ToString();
+        }
+
         public static string RemoveLineBreaks (this string str)
         {
             if (str == null)
@@ -243,6 +315,75 @@ namespace Logger.Common.DataTypes
             }
 
             return str.Replace("\r", string.Empty).Replace("\n", string.Empty);
+        }
+
+        public static string ReplaceSingleStart (this string str, char a, char b, StringComparison comparison)
+        {
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            return str.ReplaceSingleStart(new string(a, 1), new string(b, 1), comparison);
+        }
+
+        public static string ReplaceSingleStart (this string str, string a, string b, StringComparison comparison)
+        {
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+
+            if (b == null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+
+            if (a.Length == 0)
+            {
+                return str;
+            }
+
+            int index = -1;
+
+            while (true)
+            {
+                index++;
+
+                if (index >= str.Length)
+                {
+                    break;
+                }
+
+                index = str.IndexOf(a, index, comparison);
+
+                if (index == -1)
+                {
+                    break;
+                }
+
+                bool replace = true;
+
+                if (index >= 1)
+                {
+                    if (str[index - 1] == a[0])
+                    {
+                        replace = false;
+                    }
+                }
+
+                if (replace)
+                {
+                    str = str.Substring(0, index) + b + str.Substring(index + a.Length);
+                }
+            }
+
+            return str;
         }
 
         public static string[] Split (this string str, char separator)
@@ -359,6 +500,23 @@ namespace Logger.Common.DataTypes
             cultureInfo = new CultureInfo(cultureInfo.ToString());
 
             return cultureInfo;
+        }
+
+        public static DateTime ToDateTime (this string str, IFormatProvider formatProvider)
+        {
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            DateTime? value = StringExtensions.GetDateTime(str, formatProvider);
+
+            if (value == null)
+            {
+                throw new ConversionNotPossibleException(typeof(string), typeof(DateTime));
+            }
+
+            return value.Value;
         }
 
         public static DirectoryPath ToDirectoryPath (this string str)
@@ -553,6 +711,56 @@ namespace Logger.Common.DataTypes
         }*/
 
             return result;
+        }
+
+        private static DateTime? GetDateTime (string str, IFormatProvider formatProvider)
+        {
+            formatProvider = formatProvider ?? CultureInfo.InvariantCulture;
+
+            DateTime dateTimeCandidate;
+
+            foreach (string separatorCandidate in StringExtensions.DateTimeSpanSeparatorCandidates)
+            {
+                StringBuilder formatString = new StringBuilder();
+
+                List<string> formatCandidates = new List<string>();
+
+                formatString.Append("yyyy");
+                formatString.Append("\\" + separatorCandidate);
+                formatString.Append("MM");
+                formatString.Append("\\" + separatorCandidate);
+                formatString.Append("dd");
+
+                formatCandidates.Insert(0, formatString.ToString());
+
+                formatString.Append("\\" + separatorCandidate);
+                formatString.Append("HH");
+                formatString.Append("\\" + separatorCandidate);
+                formatString.Append("mm");
+                formatString.Append("\\" + separatorCandidate);
+                formatString.Append("ss");
+
+                formatCandidates.Insert(0, formatString.ToString());
+
+                formatString.Append("\\" + separatorCandidate);
+                formatString.Append("fff");
+
+                formatCandidates.Insert(0, formatString.ToString());
+
+                formatCandidates.Reverse();
+
+                if (DateTime.TryParseExact(str, formatCandidates.ToArray(), formatProvider, DateTimeStyles.None, out dateTimeCandidate))
+                {
+                    return dateTimeCandidate;
+                }
+            }
+
+            if (DateTime.TryParse(str, formatProvider, DateTimeStyles.None, out dateTimeCandidate))
+            {
+                return dateTimeCandidate;
+            }
+
+            return null;
         }
 
         private static DirectoryPath GetDirectoryPath (string str, bool allowWildcards)

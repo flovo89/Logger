@@ -6,11 +6,9 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
-using System.Windows;
 using System.Windows.Threading;
 
 using Logger.Common.IO.Files;
-using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
 using Logger.Core.Interfaces.Session;
 
@@ -61,7 +59,7 @@ namespace Logger.Core.Session
 
         #region Interface: ISessionManager
 
-        public Application Application
+        public System.Windows.Application Application
         {
             get
             {

@@ -13,7 +13,7 @@ using Logger.Common.ObjectModel;
 
 
 
-namespace Logger.Core.Interfaces
+namespace Logger.Core
 {
     public interface ISessionManager : ISynchronizable
     {

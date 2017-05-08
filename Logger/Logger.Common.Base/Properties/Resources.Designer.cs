@@ -151,6 +151,15 @@ namespace Logger.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can not add duplicate.
+        /// </summary>
+        internal static string KeyedCollectionWrapper_CannotAddDuplicate {
+            get {
+                return ResourceManager.GetString("KeyedCollectionWrapper_CannotAddDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Object is not cloneable.
         /// </summary>
         internal static string ObjectExtensions_DeepCloning_ObjectNotCloneable {
@@ -201,6 +210,15 @@ namespace Logger.Common.Properties {
         internal static string ResourceNotFoundException {
             get {
                 return ResourceManager.GetString("ResourceNotFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid parse format for serialport.
+        /// </summary>
+        internal static string SerialPortInstance_InvalidParseFormat {
+            get {
+                return ResourceManager.GetString("SerialPortInstance_InvalidParseFormat", resourceCulture);
             }
         }
         

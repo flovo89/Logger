@@ -6,7 +6,7 @@ using Logger.Common.ObjectModel;
 
 
 
-namespace Logger.Core.Interfaces.Resources
+namespace Logger.Core.Resources
 {
     public interface IResourceManager : ISynchronizable
     {

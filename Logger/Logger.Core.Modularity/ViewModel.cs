@@ -5,9 +5,9 @@ using System.Globalization;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
 using Logger.Core.Interfaces.Messaging;
-using Logger.Core.Interfaces.Resources;
 using Logger.Core.Interfaces.Session;
 using Logger.Core.Interfaces.Settings;
+using Logger.Core.Resources;
 
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Mvvm;

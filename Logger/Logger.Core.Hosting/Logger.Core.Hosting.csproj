@@ -109,14 +109,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Logging\LogManager.cs" />
+    <Compile Include="Logging\TextFileLogReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Resources\IResourceAware.cs" />
+    <Compile Include="Resources\IResourceConverter.cs" />
+    <Compile Include="Resources\IResourceSource.cs" />
+    <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Session\SessionManager.cs" />
     <Compile Include="ShellManager.cs" />
     <Compile Include="SplashScreenManager.cs" />

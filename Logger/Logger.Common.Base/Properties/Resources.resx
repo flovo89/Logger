@@ -147,6 +147,9 @@
   <data name="InvalidStreamArgumentException" xml:space="preserve">
     <value>Invalid stream argument</value>
   </data>
+  <data name="KeyedCollectionWrapper_CannotAddDuplicate" xml:space="preserve">
+    <value>Can not add duplicate</value>
+  </data>
   <data name="ObjectExtensions_DeepCloning_ObjectNotCloneable" xml:space="preserve">
     <value>Object is not cloneable</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="ResourceNotFoundException" xml:space="preserve">
     <value>Resource not found</value>
+  </data>
+  <data name="SerialPortInstance_InvalidParseFormat" xml:space="preserve">
+    <value>Invalid parse format for serialport</value>
   </data>
   <data name="StreamNotReadableArgumentException" xml:space="preserve">
     <value>Stream not readable argument exception</value>

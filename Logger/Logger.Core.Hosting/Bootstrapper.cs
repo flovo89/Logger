@@ -31,10 +31,9 @@ using Logger.Common.Threading;
 using Logger.Common.User;
 using Logger.Core.Interfaces;
 using Logger.Core.Interfaces.Logging;
-using Logger.Core.Interfaces.Resources;
 using Logger.Core.Interfaces.Session;
 using Logger.Core.Interfaces.Settings;
-using Logger.Core.Properties;
+using Logger.Core.Resources;
 
 using Microsoft.Practices.Prism.Logging;
 using Microsoft.Practices.Prism.MefExtensions;
@@ -191,7 +190,7 @@ namespace Logger.Core
             {
                 if (this.IsRunning)
                 {
-                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Resources.Bootstrapper_AnotherInstanceIsAlreadyRunning, this.GetType().Name));
+                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.Bootstrapper_AnotherInstanceIsAlreadyRunning, this.GetType().Name));
                 }
 
                 this.IsRunning = true;
@@ -286,49 +285,49 @@ namespace Logger.Core
                 this.ApplicationAssembly = this.GetApplicationAssembly();
                 if (this.ApplicationAssembly == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationAssemblyIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationAssemblyIsRequired);
                 }
 
                 this.ApplicationName = this.GetApplicationName();
                 if (this.ApplicationName == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationNameIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationNameIsRequired);
                 }
                 if (this.ApplicationName.IsEmpty())
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationNameIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationNameIsRequired);
                 }
 
                 this.ApplicationCompany = this.GetApplicationCompany();
                 if (this.ApplicationCompany == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationCompanyIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationCompanyIsRequired);
                 }
                 if (this.ApplicationCompany.IsEmpty())
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationCompanyIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationCompanyIsRequired);
                 }
 
                 this.ApplicationCopyright = this.GetApplicationCopyright();
                 if (this.ApplicationCopyright == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationCopyrightIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationCopyrightIsRequired);
                 }
                 if (this.ApplicationCopyright.IsEmpty())
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationCopyrightIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationCopyrightIsRequired);
                 }
 
                 this.ApplicationIcon = this.GetApplicationIcon();
                 if (this.ApplicationIcon == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationIconIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationIconIsRequired);
                 }
 
                 this.ApplicationVersion = this.GetApplicationVersion();
                 if (this.ApplicationVersion == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationVersionIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationVersionIsRequired);
                 }
 
                 this.ApplicationId = this.GetApplicationId();
@@ -340,7 +339,7 @@ namespace Logger.Core
                 {
                     if (this.UserInteractive)
                     {
-                        MessageBox.Show(Resources.Bootstrapper_InvalidOSVersion, this.ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.None);
+                        MessageBox.Show(Properties.Resources.Bootstrapper_InvalidOSVersion, this.ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.None);
                     }
                     Environment.ExitCode = SessionExitCodes.SystemRequirementsNotFulfilled;
                     return Environment.ExitCode;
@@ -355,7 +354,7 @@ namespace Logger.Core
                 {
                     if (this.UserInteractive)
                     {
-                        MessageBox.Show(string.Format(Resources.Bootstrapper_AnotherInstanceIsAlreadyRunning, this.ApplicationName), this.ApplicationName, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK, MessageBoxOptions.None);
+                        MessageBox.Show(string.Format(Properties.Resources.Bootstrapper_AnotherInstanceIsAlreadyRunning, this.ApplicationName), this.ApplicationName, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK, MessageBoxOptions.None);
                     }
                     Environment.ExitCode = SessionExitCodes.AnotherInstanceIsAlreadyRunning;
                     return Environment.ExitCode;
@@ -364,19 +363,19 @@ namespace Logger.Core
                 this.ApplicationDirectory = this.GetApplicationDirectory();
                 if (this.ApplicationDirectory == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationDirectoryIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationDirectoryIsRequired);
                 }
 
                 this.DataDirectory = this.GetDataDirectory();
                 if (this.DataDirectory == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_DataDirectoryIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_DataDirectoryIsRequired);
                 }
 
                 this.TemporaryDirectory = this.GetTemporaryDirectory();
                 if (this.TemporaryDirectory == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_TemporaryDirectoryIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_TemporaryDirectoryIsRequired);
                 }
 
                 this.ApplicationDirectory.Create();
@@ -388,7 +387,7 @@ namespace Logger.Core
                 this.Application = this.CreateApplication();
                 if (this.Application == null)
                 {
-                    throw new InvalidOperationException(Resources.Bootstrapper_ApplicationInstanceIsRequired);
+                    throw new InvalidOperationException(Properties.Resources.Bootstrapper_ApplicationInstanceIsRequired);
                 }
 
                 this.Application.ShutdownMode = this.GetShutdownMode();
@@ -417,7 +416,7 @@ namespace Logger.Core
                 //16. InitializeModules()
                 base.Run(runWithDefaultConfiguration);
 
-                this.SettingManager.Value.Load();
+                //this.SettingManager.Value.Load();
                 this.ResourceManager.Value.Load();
 
                 this.LogManager.Value.Log(this.GetType().Name, LogLevel.Information, "-------------------- BOOTSTRAPPING COMPLETED --------------------");

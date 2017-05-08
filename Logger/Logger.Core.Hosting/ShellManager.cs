@@ -177,7 +177,7 @@ namespace Logger.Core
             Window mainShellWindow = this.DetermineMainWindow(windowCandidates);
             if (mainShellWindow == null)
             {
-                throw new InvalidOperationException(Resources.Bootstrapper_MainWindowInstanceIsRequired);
+                throw new InvalidOperationException(Properties.Resources.Bootstrapper_MainWindowInstanceIsRequired);
             }
 
             this.LogManager.Value.Log(this.GetType().Name, LogLevel.Debug, "Setting main window: {0}", mainShellWindow.GetType().Name);
